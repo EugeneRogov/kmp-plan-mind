@@ -9,8 +9,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.avangard.ws.coreui.theme.LocalColorsPalette
-import com.avangard.ws.coreui.theme.LocalDim
+import com.eugenerogov.planmind.theme.LocalColorsPalette
+import com.eugenerogov.planmind.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

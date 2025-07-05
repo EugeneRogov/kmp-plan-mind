@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind
+package com.eugenerogov.planmind.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.eugenerogov.planmind.navigation.Screen
+import com.eugenerogov.planmind.Greeting
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

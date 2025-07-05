@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -55,6 +56,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.navigation.compose)
+            implementation(libs.androidx.navigation.ui.ktx)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -67,10 +70,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
 
-//            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
-//            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
-//            implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.0")
-//            implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.0")
+
+            implementation("com.google.code.gson:gson:2.13.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

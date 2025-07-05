@@ -1,9 +1,9 @@
-package com.eugenerogov.planmind
+package com.eugenerogov.planmind.theme
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.eugenerogov.planmind.theme.Dimensions
+import com.eugenerogov.planmind.Dimensions
 
 val LocalDim = compositionLocalOf { Dimensions() }
 

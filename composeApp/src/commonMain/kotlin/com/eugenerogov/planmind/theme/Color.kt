@@ -1,9 +1,8 @@
-package com.eugenerogov.planmind
+package com.eugenerogov.planmind.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.eugenerogov.planmind.theme.CustomColorsPalette
 
 @Immutable
 data class CustomColorsPalette(
