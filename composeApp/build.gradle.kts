@@ -52,7 +52,6 @@ kotlin {
     }
     
     sourceSets {
-        
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
             implementation(compose.preview)
@@ -61,7 +60,6 @@ kotlin {
             implementation(libs.androidx.navigation.ui.ktx)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-//            implementation(libs.voyager.androidx)
         }
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
@@ -78,6 +76,7 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.koin)
             implementation(libs.gson)
+            implementation(libs.arrow.core)
             implementation(projects.shared)
         }
         commonTest.dependencies {

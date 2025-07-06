@@ -14,6 +14,7 @@ application {
 }
 
 dependencies {
+    implementation(libs.arrow.core)
     implementation(projects.shared)
     implementation(libs.logback)
     implementation(libs.ktor.serverCore)
