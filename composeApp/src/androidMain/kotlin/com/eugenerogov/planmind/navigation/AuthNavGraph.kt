@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.eugenerogov.planmind.ui.screen.DefaultScreen
+import com.eugenerogov.planmind.ui.screen.LoginScreen
 
 fun NavGraphBuilder.authNavGraph(navController: NavController, goToMain: () -> Unit) {
     composable(
@@ -15,12 +16,12 @@ fun NavGraphBuilder.authNavGraph(navController: NavController, goToMain: () -> U
     composable(
         route = Screen.Login.route
     ) {
-//        LoginScreen(
+        LoginScreen(
 //            navController = navController,
-//            goToMain = {
-//                goToMain.invoke()
-//            }
-//        )
+            goToMain = {
+                goToMain.invoke()
+            }
+        )
     }
 
     composable(
