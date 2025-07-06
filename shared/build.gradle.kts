@@ -42,6 +42,8 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.koin.core)
             implementation("io.arrow-kt:arrow-core:2.1.2")
         }
         commonTest.dependencies {

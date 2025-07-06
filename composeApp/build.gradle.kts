@@ -62,6 +62,8 @@ kotlin {
             implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.coroutines.android)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
