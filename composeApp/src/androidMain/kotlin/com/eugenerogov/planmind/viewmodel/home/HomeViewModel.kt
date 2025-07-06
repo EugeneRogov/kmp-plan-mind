@@ -1,11 +1,11 @@
-package com.eugenerogov.planmind.viewmodel.debug
+package com.eugenerogov.planmind.viewmodel.home
 
 import androidx.lifecycle.viewModelScope
 import com.eugenerogov.planmind.viewmodel.BaseViewModel
 import com.eugenerogov.planmind.viewmodel.UiEvent
 import kotlinx.coroutines.launch
 
-class DebugViewModel() : BaseViewModel<DebugUiState>(DebugUiState()) {
+class HomeViewModel() : BaseViewModel<HomeUiState>(HomeUiState()) {
 
     // region API
 

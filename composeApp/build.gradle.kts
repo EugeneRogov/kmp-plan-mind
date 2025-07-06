@@ -54,6 +54,7 @@ kotlin {
     sourceSets {
         
         androidMain.dependencies {
+            implementation(libs.kotlinx.coroutines.android)
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.navigation.compose)
@@ -63,7 +64,6 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.coroutines.android)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

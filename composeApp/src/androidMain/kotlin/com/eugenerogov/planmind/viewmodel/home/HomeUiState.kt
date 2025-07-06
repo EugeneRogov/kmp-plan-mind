@@ -1,12 +1,12 @@
-package com.eugenerogov.planmind.viewmodel.debug
+package com.eugenerogov.planmind.viewmodel.home
 
 import com.eugenerogov.planmind.viewmodel.UiState
 
-data class DebugUiState(
+data class HomeUiState(
     val content: String = ""
 ) : UiState {
     companion object {
-        fun preview() = DebugUiState(
+        fun preview() = HomeUiState(
             content = "content"
         )
     }
