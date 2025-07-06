@@ -42,7 +42,5 @@ private fun DefaultContent() {
 @Preview()
 @Composable
 fun DefaultPreview() {
-//    RosAtomTheme {
-        DefaultContent()
-//    }
+    DefaultContent()
 }

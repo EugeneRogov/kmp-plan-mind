@@ -13,6 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.eugenerogov.planmind.Greeting
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import org.jetbrains.compose.resources.painterResource
@@ -21,14 +24,21 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.compose_multiplatform
 
-@Composable
-fun HomeScreen() {
-    HomeContent()
+object HomeScreen : Screen {
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+        HomeContent(
+            onNavigateToLogin = { navigator.push(LoginScreen) }
+        )
+    }
 }
 
 @Composable
 @Preview
-fun HomeContent() {
+fun HomeContent(
+    onNavigateToLogin: () -> Unit = {}
+) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
 
@@ -41,9 +51,12 @@ fun HomeContent() {
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Button(onClick = { showContent = !showContent }) {
-                    Text("Click me!")
+
+
+                Button(onClick = onNavigateToLogin) {
+                    Text("Go to Login")
                 }
+
                 AnimatedVisibility(showContent) {
                     val greeting = remember { Greeting().greet() }
                     Column(

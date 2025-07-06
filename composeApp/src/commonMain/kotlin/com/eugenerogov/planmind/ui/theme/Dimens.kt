@@ -3,7 +3,6 @@ package com.eugenerogov.planmind.ui.theme
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.eugenerogov.planmind.Dimensions
 
 val LocalDim = compositionLocalOf { Dimensions() }
 

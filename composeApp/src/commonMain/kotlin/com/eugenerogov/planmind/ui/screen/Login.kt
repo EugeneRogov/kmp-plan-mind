@@ -20,21 +20,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.eugenerogov.planmind.ui.component.button.ButtonLarge
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+object LoginScreen : Screen {
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+        LoginScreenContent(
+            goToMain = { navigator.push(LoginScreen) }
+        )
+    }
+}
 
 @Composable
-fun LoginScreen(
-//    navController: NavController,
-//    viewModel: LoginViewModel = koinViewModel(),
+fun LoginScreenContent(
     goToMain: () -> Unit
 ) {
-//    val uiState by viewModel.uiState.collectAsState()
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
-//    val context = LocalContext.current
 
     LaunchedEffect(
         key1 = true
@@ -42,11 +50,8 @@ fun LoginScreen(
 
     }
 
-
-
     LoginContent(
         scaffoldState = snackBarHostState,
-
         updateLogin = {
 
         },
@@ -137,6 +142,3 @@ fun LoginPreview() {
         onClickNetworkSettings = {}
     )
 }
-
-
-

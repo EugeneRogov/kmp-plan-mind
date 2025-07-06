@@ -12,9 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.eugenerogov.planmind.LocalColorsPalette
-import com.eugenerogov.planmind.LocalDim
 import com.eugenerogov.planmind.ui.component.typography.BodyMedium
+import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
