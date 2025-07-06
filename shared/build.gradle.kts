@@ -45,8 +45,31 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.core)
             implementation(libs.arrow.core)
-
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.auth)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
         }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.android)
+        }
+
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.java)
+        }
+
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.js)
+            }
+        }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
