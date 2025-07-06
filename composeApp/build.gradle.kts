@@ -61,6 +61,7 @@ kotlin {
             implementation(libs.androidx.navigation.ui.ktx)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+//            implementation(libs.voyager.androidx)
         }
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
@@ -73,10 +74,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.koin.core)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
+            implementation(libs.gson)
             implementation(projects.shared)
-
-
-            implementation("com.google.code.gson:gson:2.13.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
