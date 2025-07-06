@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.typography
+package com.eugenerogov.planmind.ui.component.typography
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -6,20 +6,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.sp
-import com.eugenerogov.planmind.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LabelLarge(
+fun TitleSmall(
     modifier: Modifier = Modifier,
     text: String,
     color: Color = LocalColorsPalette.current.onBackground,
-    textAlign: TextAlign = TextAlign.Start,
-    maxLines: Int = Int.MAX_VALUE
+    textAlign: TextAlign = TextAlign.Center,
+    maxLines: Int = 1,
+//    fontFamily: FontFamily = FontFamily(Font(R.font.roboto_regular))
 ) {
     Text(
         modifier = modifier,
@@ -27,19 +25,17 @@ fun LabelLarge(
         color = color,
         textAlign = textAlign,
         maxLines = maxLines,
-        overflow = TextOverflow.Ellipsis,
-//        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+//        fontFamily = fontFamily,
         fontWeight = W500,
         fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = TextUnit(0.14F, TextUnitType.Sp)
+        lineHeight = 20.sp
     )
 }
 
 @Preview()
 @Composable
-fun LabelLargePreview() {
-    LabelLarge(
-        text = "LabelLarge"
+fun TitleSmallPreview() {
+    TitleSmall(
+        text = "TitleSmall"
     )
 }

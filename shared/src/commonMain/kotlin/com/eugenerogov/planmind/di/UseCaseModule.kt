@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.domain.di
+package com.eugenerogov.planmind.di
 
 import com.eugenerogov.planmind.domain.usecases.SignInLoginUseCase
 import kotlinx.coroutines.Dispatchers

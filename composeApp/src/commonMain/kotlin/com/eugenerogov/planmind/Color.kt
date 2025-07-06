@@ -3,7 +3,7 @@ package com.eugenerogov.planmind
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.eugenerogov.planmind.theme.CustomColorsPalette
+import com.eugenerogov.planmind.ui.theme.CustomColorsPalette
 
 @Immutable
 data class CustomColorsPalette(

@@ -3,7 +3,7 @@ package com.eugenerogov.planmind.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.eugenerogov.planmind.ui.DefaultScreen
+import com.eugenerogov.planmind.ui.screen.DefaultScreen
 
 fun NavGraphBuilder.authNavGraph(navController: NavController, goToMain: () -> Unit) {
     composable(

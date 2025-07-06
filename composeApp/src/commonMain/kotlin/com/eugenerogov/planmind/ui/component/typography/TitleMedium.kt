@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.typography
+package com.eugenerogov.planmind.ui.component.typography
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,7 +9,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.sp
-import com.eugenerogov.planmind.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

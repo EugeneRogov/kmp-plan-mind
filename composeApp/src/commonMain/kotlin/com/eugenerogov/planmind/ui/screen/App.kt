@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.ui
+package com.eugenerogov.planmind.ui.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

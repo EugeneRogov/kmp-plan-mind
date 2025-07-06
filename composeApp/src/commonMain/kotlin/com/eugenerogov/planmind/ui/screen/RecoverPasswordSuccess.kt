@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.ui.auth
+package com.eugenerogov.planmind.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.eugenerogov.planmind.LocalColorsPalette
 import com.eugenerogov.planmind.LocalDim
-import com.eugenerogov.planmind.typography.BodyMedium
+import com.eugenerogov.planmind.ui.component.typography.BodyMedium
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

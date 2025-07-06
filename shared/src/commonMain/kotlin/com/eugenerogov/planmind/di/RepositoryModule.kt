@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.data.di
+package com.eugenerogov.planmind.di
 
 import com.eugenerogov.planmind.data.AuthRepositoryImpl
 import com.eugenerogov.planmind.data.ProfileRepositoryImpl

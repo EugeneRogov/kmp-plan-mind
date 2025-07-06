@@ -15,10 +15,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.eugenerogov.planmind.theme.LocalColorsPalette
-import com.eugenerogov.planmind.theme.OnDarkCustomColorsPalette
-import com.eugenerogov.planmind.theme.OnLightCustomColorsPalette
-import com.eugenerogov.planmind.theme.Typography
+import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.OnDarkCustomColorsPalette
+import com.eugenerogov.planmind.ui.theme.OnLightCustomColorsPalette
+import com.eugenerogov.planmind.ui.theme.Typography
 
 private val DarkColorScheme =
     darkColorScheme(

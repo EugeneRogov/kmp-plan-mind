@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.theme
+package com.eugenerogov.planmind.ui.theme
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
