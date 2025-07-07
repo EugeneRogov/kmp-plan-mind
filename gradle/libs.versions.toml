@@ -22,6 +22,7 @@ ktor = "3.2.1"
 voyager = "1.1.0-beta03"
 arrow = "2.1.2"
 logback = "1.5.18"
+decompose = "3.3.0"
 
 [libraries]
 # Kotlin
@@ -62,7 +63,10 @@ voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voy
 # Arrow
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 
-# Ktor client
+# Decompose
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+
+# Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }

@@ -78,6 +78,7 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.koin)
             implementation(libs.arrow.core)
+            implementation(libs.decompose)
 
         }
         commonTest.dependencies {
