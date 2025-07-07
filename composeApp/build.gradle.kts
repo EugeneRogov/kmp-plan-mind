@@ -62,6 +62,8 @@ kotlin {
             implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
+            implementation(projects.shared)
+
             implementation(libs.kotlinx.coroutines.core)
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -77,7 +79,7 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.gson)
             implementation(libs.arrow.core)
-            implementation(projects.shared)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
