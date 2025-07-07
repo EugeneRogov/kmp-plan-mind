@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,10 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.eugenerogov.planmind.ui.component.button.ButtonLarge
+import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalDim
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 object LoginScreen : Screen {
@@ -79,7 +83,6 @@ fun LoginScreenContent(
 @Composable
 private fun LoginContent(
     scaffoldState: SnackbarHostState,
-
     updateLogin: (String) -> Unit,
     updatePassword: (String) -> Unit,
     updateLoginIn: (Boolean) -> Unit,
@@ -95,9 +98,26 @@ private fun LoginContent(
         modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(LocalDim.current.smallX),
         verticalArrangement = Arrangement.Center
     ) {
+        InputEmail(
+            hint = "Email",
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = LocalDim.current.medium,
+                        bottom = LocalDim.current.small4X
+                    ),
+            text = "",
+            onValueChange = {
+                updateLogin.invoke(it)
+            },
+            inputType = KeyboardType.Text,
+            imeAction = ImeAction.Next,
+            enabled = true
+        )
         // Login field
         OutlinedTextField(
             value = "",  // Assume 'login' is passed as a parameter to LoginContent
