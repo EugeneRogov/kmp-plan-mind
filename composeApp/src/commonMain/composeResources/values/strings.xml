@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PlanMind</string>
+    <string name="email_hint">Email</string>
+</resources>

@@ -60,6 +60,7 @@ kotlin {
             implementation(libs.androidx.navigation.ui.ktx)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            implementation(libs.compose.resources)
         }
         commonMain.dependencies {
             implementation(projects.shared)

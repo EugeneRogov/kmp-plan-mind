@@ -51,13 +51,12 @@ kotlin {
             implementation(libs.ktor.client.auth)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
-            implementation(libs.compose.resources)
 
         }
 
         androidMain.dependencies {
             implementation(libs.ktor.client.android)
-            implementation("androidx.compose.runtime:runtime:1.6.7")
+            implementation(libs.compose.runtime)
         }
 
         nativeMain.dependencies {

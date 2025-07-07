@@ -30,6 +30,8 @@ import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.email_hint
 
 object LoginScreen : Screen {
     @Composable
@@ -102,7 +104,7 @@ private fun LoginContent(
         verticalArrangement = Arrangement.Center
     ) {
         InputEmail(
-            hint = "Email",
+            hint = stringResource(Res.string.email_hint),
             modifier =
                 Modifier
                     .fillMaxWidth()

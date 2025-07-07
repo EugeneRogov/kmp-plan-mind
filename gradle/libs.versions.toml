@@ -13,6 +13,7 @@ androidx-testExt = "1.2.1"
 koin = "4.1.0"
 navigation = "2.9.1"
 compose-multiplatform = "1.8.2"
+compose = "1.8.3"
 junit = "4.13.2"
 kotlin = "2.2.0"
 kotlinx-serialization = "1.9.0"
@@ -27,6 +28,7 @@ logback = "1.5.18"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+compose-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
 
 # Android
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -41,7 +43,7 @@ androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:life
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 
 # Compose
-compose-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 
 # Koin
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
