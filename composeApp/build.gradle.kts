@@ -77,7 +77,6 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.koin)
-            implementation(libs.gson)
             implementation(libs.arrow.core)
 
         }
