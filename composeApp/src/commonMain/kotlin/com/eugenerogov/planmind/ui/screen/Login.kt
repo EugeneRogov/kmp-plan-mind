@@ -28,9 +28,9 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.eugenerogov.planmind.component.login.DefaultLoginComponent
-import com.eugenerogov.planmind.component.login.LoginComponent
-import com.eugenerogov.planmind.component.login.LoginUiState
+import com.eugenerogov.planmind.viewmodel.LoginViewModelImpl
+import com.eugenerogov.planmind.viewmodel.LoginViewModel
+import com.eugenerogov.planmind.viewmodel.LoginUiState
 import com.eugenerogov.planmind.ui.component.button.ButtonLarge
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
@@ -57,7 +57,7 @@ fun LoginScreenContent(
     val snackBarHostState = remember { SnackbarHostState() }
 
     val loginComponent = remember {
-        DefaultLoginComponent(
+        LoginViewModelImpl(
             componentContext = DefaultComponentContext(
                 lifecycle = LifecycleRegistry()
             ),
@@ -90,7 +90,7 @@ fun LoginScreenContent(
 @Composable
 private fun LoginContent(
     state: LoginUiState,
-    component: LoginComponent
+    component: LoginViewModel
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -149,7 +149,7 @@ private fun LoginContent(
 fun LoginPreview() {
     LoginContent(
         state = LoginUiState.preview(),
-        component = object : LoginComponent {
+        component = object : LoginViewModel {
             override val state = com.arkivanov.decompose.value.MutableValue(LoginUiState.preview())
 
             override fun updateLogin(login: String) {}

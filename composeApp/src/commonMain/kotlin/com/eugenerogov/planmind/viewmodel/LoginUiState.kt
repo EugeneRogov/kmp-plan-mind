@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.component.login
+package com.eugenerogov.planmind.viewmodel
 
 data class LoginUiState(
     val inProgress: Boolean = false,
