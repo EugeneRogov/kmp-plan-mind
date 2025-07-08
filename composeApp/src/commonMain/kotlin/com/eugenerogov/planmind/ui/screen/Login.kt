@@ -14,8 +14,11 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,6 +27,12 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.eugenerogov.planmind.component.login.DefaultLoginComponent
+import com.eugenerogov.planmind.component.login.LoginComponent
+import com.eugenerogov.planmind.component.login.LoginUiState
 import com.eugenerogov.planmind.ui.component.button.ButtonLarge
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
@@ -50,104 +59,96 @@ fun LoginScreenContent(
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(
-        key1 = true
-    ) {
+    // Create LoginComponent - in a real app, this would be injected
+    val loginComponent = remember {
+        DefaultLoginComponent(
+            componentContext = DefaultComponentContext(
+                lifecycle = LifecycleRegistry()
+            ),
+            onLoginSuccess = goToMain,
+            onNavigateToForgotPassword = { /* Navigate to forgot password */ },
+            onNavigateToNetworkSettings = { /* Navigate to network settings */ }
+        )
+    }
 
+    // Simple state observation without subscribeAsState
+    var state by remember { mutableStateOf(LoginUiState()) }
+
+    LaunchedEffect(loginComponent) {
+        loginComponent.state.subscribe { newState ->
+            state = newState
+        }
+    }
+
+    LaunchedEffect(key1 = state.errorMessage) {
+        if (state.errorMessage.isNotEmpty()) {
+            snackBarHostState.showSnackbar(state.errorMessage)
+        }
     }
 
     LoginContent(
         scaffoldState = snackBarHostState,
-        updateLogin = {
-
-        },
-        updatePassword = {
-
-        },
-        updateLoginIn = {
-
-        },
-        updateDebugMenuExpanded = {
-
-        },
-        onClickLogin = {
-
-        },
-        onClickForgotPassword = {
-
-        },
-        onClickNetworkSettings = {
-
-        }
+        state = state,
+        component = loginComponent
     )
 }
 
 @Composable
 private fun LoginContent(
     scaffoldState: SnackbarHostState,
-    updateLogin: (String) -> Unit,
-    updatePassword: (String) -> Unit,
-    updateLoginIn: (Boolean) -> Unit,
-    updateDebugMenuExpanded: (Boolean) -> Unit,
-    onClickLogin: () -> Unit,
-    onClickForgotPassword: () -> Unit,
-    onClickNetworkSettings: () -> Unit
+    state: LoginUiState,
+    component: LoginComponent
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
     ) { innerPadding ->
-    Column(
-        modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize()
-            .padding(LocalDim.current.smallX),
-        verticalArrangement = Arrangement.Center
-    ) {
-        InputEmail(
-            hint = stringResource(Res.string.email_hint),
-            modifier =
-                Modifier
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(LocalDim.current.smallX),
+            verticalArrangement = Arrangement.Center
+        ) {
+            InputEmail(
+                hint = stringResource(Res.string.email_hint),
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(
                         top = LocalDim.current.medium,
                         bottom = LocalDim.current.small4X
                     ),
-            text = "",
-            onValueChange = {
-                updateLogin.invoke(it)
-            },
-            inputType = KeyboardType.Text,
-            imeAction = ImeAction.Next,
-            enabled = true
-        )
-        // Login field
-        OutlinedTextField(
-            value = "",  // Assume 'login' is passed as a parameter to LoginContent
-            onValueChange = updateLogin,
-            label = { Text("Login") },
-            placeholder = { Text("Enter your login") },
-            modifier = Modifier.fillMaxWidth()
-        )
+                text = state.login,
+                onValueChange = component::updateLogin,
+                inputType = KeyboardType.Email,
+                imeAction = ImeAction.Next,
+                enabled = state.isLoginEnabled && !state.inProgress
+            )
 
-        // Password field
-        OutlinedTextField(
-            value = "",  // Assume 'password' is passed as a parameter to LoginContent
-            onValueChange = updatePassword,
-            label = { Text("Password") },
-            placeholder = { Text("Enter your password") },
-            modifier = Modifier.fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
+            // Password field
+            OutlinedTextField(
+                value = state.password,
+                onValueChange = component::updatePassword,
+                label = { Text("Password") },
+                placeholder = { Text("Enter your password") },
+                modifier = Modifier.fillMaxWidth(),
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done
+                ),
+                enabled = state.isPasswordEnabled && !state.inProgress
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Login button
-        ButtonLarge(
-            onClick = onClickLogin,
-            text = "Login"
-        )
-    }}
+            // Login button
+            ButtonLarge(
+                onClick = component::onClickLogin,
+                text = if (state.inProgress) "Logging in..." else "Login",
+                enabled = !state.inProgress
+            )
+        }
+    }
 }
 
 @Preview()
@@ -155,12 +156,17 @@ private fun LoginContent(
 fun LoginPreview() {
     LoginContent(
         scaffoldState = remember { SnackbarHostState() },
-        updateLogin = {},
-        updatePassword = {},
-        updateLoginIn = {},
-        updateDebugMenuExpanded = {},
-        onClickLogin = {},
-        onClickForgotPassword = {},
-        onClickNetworkSettings = {}
+        state = LoginUiState.preview(),
+        component = object : LoginComponent {
+            override val state = com.arkivanov.decompose.value.MutableValue(LoginUiState.preview())
+
+            override fun updateLogin(login: String) {}
+            override fun updatePassword(password: String) {}
+            override fun updateLoginIn(isLoginIn: Boolean) {}
+            override fun updateDebugMenuExpanded(expanded: Boolean) {}
+            override fun onClickLogin() {}
+            override fun onClickForgotPassword() {}
+            override fun onClickNetworkSettings() {}
+        }
     )
 }
