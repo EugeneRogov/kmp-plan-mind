@@ -98,6 +98,13 @@ private fun LoginContent(
     scaffoldState: SnackbarHostState,
     state: LoginUiState,
     component: LoginComponent
+    updateLogin: (String) -> Unit,
+    updatePassword: (String) -> Unit,
+    updateLoginIn: (Boolean) -> Unit,
+    updateDebugMenuExpanded: (Boolean) -> Unit,
+    onClickLogin: () -> Unit,
+    onClickForgotPassword: () -> Unit,
+    onClickNetworkSettings: () -> Unit
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -112,6 +119,17 @@ private fun LoginContent(
             InputEmail(
                 hint = stringResource(Res.string.email_hint),
                 modifier = Modifier
+    Column(
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize()
+            .padding(LocalDim.current.smallX),
+        verticalArrangement = Arrangement.Center
+    ) {
+        InputEmail(
+            hint = stringResource(Res.string.email_hint),
+            modifier =
+                Modifier
                     .fillMaxWidth()
                     .padding(
                         top = LocalDim.current.medium,
@@ -149,6 +167,42 @@ private fun LoginContent(
             )
         }
     }
+            text = "",
+            onValueChange = {
+                updateLogin.invoke(it)
+            },
+            inputType = KeyboardType.Text,
+            imeAction = ImeAction.Next,
+            enabled = true
+        )
+        // Login field
+        OutlinedTextField(
+            value = "",  // Assume 'login' is passed as a parameter to LoginContent
+            onValueChange = updateLogin,
+            label = { Text("Login") },
+            placeholder = { Text("Enter your login") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        // Password field
+        OutlinedTextField(
+            value = "",  // Assume 'password' is passed as a parameter to LoginContent
+            onValueChange = updatePassword,
+            label = { Text("Password") },
+            placeholder = { Text("Enter your password") },
+            modifier = Modifier.fillMaxWidth(),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Login button
+        ButtonLarge(
+            onClick = onClickLogin,
+            text = "Login"
+        )
+    }}
 }
 
 @Preview()
