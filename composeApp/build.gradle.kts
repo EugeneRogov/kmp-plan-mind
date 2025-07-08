@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.implementation
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -79,8 +77,8 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.arrow.core)
             implementation(libs.decompose)
-            implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
-            implementation("com.arkivanov.essenty:lifecycle:2.3.0")
+            implementation(libs.decompose.extensions.compose)
+            implementation(libs.essenty.lifecycle)
 
         }
         commonTest.dependencies {
