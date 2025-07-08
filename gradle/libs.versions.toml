@@ -23,6 +23,7 @@ voyager = "1.1.0-beta03"
 arrow = "2.1.2"
 logback = "1.5.18"
 decompose = "3.3.0"
+decompose-essenty = "2.5.0"
 
 [libraries]
 # Kotlin
@@ -66,7 +67,7 @@ arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 # Decompose
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-extensions-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
-essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "decompose" }
+essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "decompose-essenty" }
 
 # Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
