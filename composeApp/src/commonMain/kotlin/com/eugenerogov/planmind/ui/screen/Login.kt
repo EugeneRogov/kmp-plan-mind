@@ -17,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
@@ -27,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.eugenerogov.planmind.component.login.DefaultLoginComponent
@@ -56,10 +54,8 @@ object LoginScreen : Screen {
 fun LoginScreenContent(
     goToMain: () -> Unit
 ) {
-    val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 
-    // Create LoginComponent - in a real app, this would be injected
     val loginComponent = remember {
         DefaultLoginComponent(
             componentContext = DefaultComponentContext(
@@ -71,7 +67,6 @@ fun LoginScreenContent(
         )
     }
 
-    // Simple state observation without subscribeAsState
     var state by remember { mutableStateOf(LoginUiState()) }
 
     LaunchedEffect(loginComponent) {
@@ -87,7 +82,6 @@ fun LoginScreenContent(
     }
 
     LoginContent(
-        scaffoldState = snackBarHostState,
         state = state,
         component = loginComponent
     )
@@ -95,16 +89,8 @@ fun LoginScreenContent(
 
 @Composable
 private fun LoginContent(
-    scaffoldState: SnackbarHostState,
     state: LoginUiState,
     component: LoginComponent
-    updateLogin: (String) -> Unit,
-    updatePassword: (String) -> Unit,
-    updateLoginIn: (Boolean) -> Unit,
-    updateDebugMenuExpanded: (Boolean) -> Unit,
-    onClickLogin: () -> Unit,
-    onClickForgotPassword: () -> Unit,
-    onClickNetworkSettings: () -> Unit
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -119,17 +105,6 @@ private fun LoginContent(
             InputEmail(
                 hint = stringResource(Res.string.email_hint),
                 modifier = Modifier
-    Column(
-        modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize()
-            .padding(LocalDim.current.smallX),
-        verticalArrangement = Arrangement.Center
-    ) {
-        InputEmail(
-            hint = stringResource(Res.string.email_hint),
-            modifier =
-                Modifier
                     .fillMaxWidth()
                     .padding(
                         top = LocalDim.current.medium,
@@ -167,49 +142,12 @@ private fun LoginContent(
             )
         }
     }
-            text = "",
-            onValueChange = {
-                updateLogin.invoke(it)
-            },
-            inputType = KeyboardType.Text,
-            imeAction = ImeAction.Next,
-            enabled = true
-        )
-        // Login field
-        OutlinedTextField(
-            value = "",  // Assume 'login' is passed as a parameter to LoginContent
-            onValueChange = updateLogin,
-            label = { Text("Login") },
-            placeholder = { Text("Enter your login") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        // Password field
-        OutlinedTextField(
-            value = "",  // Assume 'password' is passed as a parameter to LoginContent
-            onValueChange = updatePassword,
-            label = { Text("Password") },
-            placeholder = { Text("Enter your password") },
-            modifier = Modifier.fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Login button
-        ButtonLarge(
-            onClick = onClickLogin,
-            text = "Login"
-        )
-    }}
 }
 
 @Preview()
 @Composable
 fun LoginPreview() {
     LoginContent(
-        scaffoldState = remember { SnackbarHostState() },
         state = LoginUiState.preview(),
         component = object : LoginComponent {
             override val state = com.arkivanov.decompose.value.MutableValue(LoginUiState.preview())
