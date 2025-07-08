@@ -29,7 +29,8 @@ object HomeScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         HomeContent(
-            onNavigateToLogin = { navigator.push(LoginScreen) }
+            onNavigateToLogin = { navigator.push(LoginScreen) },
+            onNavigateToProfile = { navigator.push(ProfileScreen) }
         )
     }
 }
@@ -37,7 +38,8 @@ object HomeScreen : Screen {
 @Composable
 @Preview
 fun HomeContent(
-    onNavigateToLogin: () -> Unit = {}
+    onNavigateToLogin: () -> Unit = {},
+    onNavigateToProfile: () -> Unit = {}
 ) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
@@ -55,6 +57,10 @@ fun HomeContent(
 
                 Button(onClick = onNavigateToLogin) {
                     Text("Go to Login")
+                }
+
+                Button(onClick = onNavigateToProfile) {
+                    Text("Go to Profile")
                 }
 
                 AnimatedVisibility(showContent) {
