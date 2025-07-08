@@ -1,13 +1,27 @@
 package com.eugenerogov.planmind
 
 import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
+import io.ktor.server.application.Application
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.response.respond
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+
+@Serializable
+data class UserProfile(
+    val id: String,
+    val name: String,
+    val email: String,
+    val avatar: String?,
+    val createdAt: String,
+    val preferences: Map<String, String>
+)
+
+const val SERVER_PORT = 8080
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -24,14 +38,25 @@ fun Application.module() {
             })
         }
 
-        get("/") {
-            call.respondText("Ktor: ${Greeting().greet()}")
-        }
-
         get("/plan-mind") {
             val data = mapOf("names" to listOf("Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Helen", "Isaac", "Julia"))
             call.respond(data)
         }
+
+        get("/user/profile") {
+            val profile = UserProfile(
+                id = "user123",
+                name = "John Doe",
+                email = "john.doe@example.com",
+                avatar = "https://example.com/avatar.jpg",
+                createdAt = "2024-01-01T00:00:00Z",
+                preferences = mapOf(
+                    "theme" to "dark",
+                    "language" to "en",
+                    "notifications" to "true"
+                )
+            )
+            call.respond(profile)
+        }
     }
 }
-
