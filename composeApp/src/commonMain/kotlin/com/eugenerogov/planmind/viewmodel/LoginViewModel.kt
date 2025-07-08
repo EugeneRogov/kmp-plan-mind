@@ -1,16 +1,16 @@
-package com.eugenerogov.planmind.component.login
+package com.eugenerogov.planmind.viewmodel
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
-import com.eugenerogov.planmind.component.login.LoginUiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-interface LoginComponent {
+interface LoginViewModel {
     val state: Value<LoginUiState>
 
     fun updateLogin(login: String)
@@ -22,12 +22,12 @@ interface LoginComponent {
     fun onClickNetworkSettings()
 }
 
-class DefaultLoginComponent(
+class LoginViewModelImpl(
     componentContext: ComponentContext,
     private val onLoginSuccess: () -> Unit,
     private val onNavigateToForgotPassword: () -> Unit,
     private val onNavigateToNetworkSettings: () -> Unit
-) : LoginComponent, ComponentContext by componentContext {
+) : LoginViewModel, ComponentContext by componentContext {
 
     private val _state = MutableValue(LoginUiState())
     override val state: Value<LoginUiState> = _state
@@ -62,7 +62,7 @@ class DefaultLoginComponent(
         scope.launch {
             try {
                 // Simulate login process
-                kotlinx.coroutines.delay(1000)
+                delay(1000)
 
                 // Here you would typically call your authentication service
                 // For now, we'll just simulate a successful login
