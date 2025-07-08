@@ -11,7 +11,7 @@ import com.eugenerogov.planmind.domain.entities.profile.UserProfile
 class ProfileRepositoryImpl(
 
 ) : ProfileRepository {
-    override suspend fun getGeneralInfo(): Either<Failure, UserProfile> {
+    override suspend fun getUserProfile(): Either<Failure, UserProfile> {
         TODO("Not yet implemented")
     }
 }

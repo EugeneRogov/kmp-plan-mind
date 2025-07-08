@@ -1,5 +1,6 @@
 package com.eugenerogov.planmind
 
+import com.eugenerogov.planmind.domain.entities.profile.UserProfile
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
@@ -8,18 +9,7 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-
-@Serializable
-data class UserProfile(
-    val id: String,
-    val name: String,
-    val email: String,
-    val avatar: String?,
-    val createdAt: String,
-    val preferences: Map<String, String>
-)
 
 const val SERVER_PORT = 8080
 
