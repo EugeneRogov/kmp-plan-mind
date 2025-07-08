@@ -79,6 +79,8 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.arrow.core)
             implementation(libs.decompose)
+            implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
+            implementation("com.arkivanov.essenty:lifecycle:2.3.0")
 
         }
         commonTest.dependencies {

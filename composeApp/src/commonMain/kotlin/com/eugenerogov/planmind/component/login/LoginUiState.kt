@@ -1,6 +1,4 @@
-package com.eugenerogov.planmind.viewmodel.auth
-
-import com.eugenerogov.planmind.viewmodel.UiState
+package com.eugenerogov.planmind.component.login
 
 data class LoginUiState(
     val inProgress: Boolean = false,
@@ -13,7 +11,7 @@ data class LoginUiState(
     val errorMessage: String = "",
     val isNetworkSettings: Boolean = false,
     val debugMenuExpanded: Boolean = false
-) : UiState {
+) {
     companion object {
         fun preview() = LoginUiState(
             inProgress = false,
