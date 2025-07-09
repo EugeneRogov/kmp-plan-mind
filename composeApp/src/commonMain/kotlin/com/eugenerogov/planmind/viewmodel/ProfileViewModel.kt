@@ -9,6 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.eugenerogov.planmind.domain.ProfileRepository
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 interface ProfileViewModel {
     val state: Value<ProfileUiState>
@@ -25,12 +28,14 @@ interface ProfileViewModel {
 class ProfileViewModelImpl(
     componentContext: ComponentContext,
     private val onProfileSaved: () -> Unit = {}
-) : ProfileViewModel, ComponentContext by componentContext {
+) : ProfileViewModel, ComponentContext by componentContext, KoinComponent {
 
     private val _state = MutableValue(ProfileUiState())
     override val state: Value<ProfileUiState> = _state
 
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    private val profileRepository: ProfileRepository by inject()
 
     init {
         loadProfile()
