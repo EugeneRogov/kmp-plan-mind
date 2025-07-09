@@ -28,7 +28,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.eugenerogov.planmind.viewmodel.LoginViewModelImpl
 import com.eugenerogov.planmind.viewmodel.LoginViewModel
 import com.eugenerogov.planmind.viewmodel.LoginUiState
 import com.eugenerogov.planmind.ui.component.button.ButtonLarge
@@ -39,6 +38,8 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.email_hint
+import org.koin.core.parameter.parametersOf
+import org.koin.mp.KoinPlatformTools
 
 object LoginScreen : Screen {
     @Composable
@@ -57,13 +58,15 @@ fun LoginScreenContent(
     val snackBarHostState = remember { SnackbarHostState() }
 
     val loginComponent = remember {
-        LoginViewModelImpl(
-            componentContext = DefaultComponentContext(
-                lifecycle = LifecycleRegistry()
-            ),
-            onLoginSuccess = goToMain,
-            onNavigateToForgotPassword = { /* Navigate to forgot password */ },
-            onNavigateToNetworkSettings = { /* Navigate to network settings */ }
+        KoinPlatformTools.defaultContext().get().get<LoginViewModel>(
+            parameters = {
+                parametersOf(
+                    DefaultComponentContext(lifecycle = LifecycleRegistry()),
+                    goToMain,
+                    { /* Navigate to forgot password */ },
+                    { /* Navigate to network settings */ }
+                )
+            }
         )
     }
 
