@@ -1,5 +1,9 @@
 package com.eugenerogov.planmind
 
+import com.eugenerogov.planmind.data.remote.Endpoint.HOST
+import com.eugenerogov.planmind.data.remote.Endpoint.MIND_PLAN
+import com.eugenerogov.planmind.data.remote.Endpoint.SERVER_PORT
+import com.eugenerogov.planmind.data.remote.Endpoint.USER_PROFILE
 import com.eugenerogov.planmind.domain.entities.profile.UserProfile
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
@@ -11,10 +15,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
 
-const val SERVER_PORT = 8080
-
 fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
+    embeddedServer(Netty, port = SERVER_PORT, host = HOST, module = Application::module)
         .start(wait = true)
 }
 
@@ -28,12 +30,12 @@ fun Application.module() {
             })
         }
 
-        get("/plan-mind") {
+        get(MIND_PLAN) {
             val data = mapOf("names" to listOf("Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Helen", "Isaac", "Julia"))
             call.respond(data)
         }
 
-        get("/user/profile") {
+        get(USER_PROFILE) {
             val profile = UserProfile(
                 id = "user123",
                 name = "John Doe",
