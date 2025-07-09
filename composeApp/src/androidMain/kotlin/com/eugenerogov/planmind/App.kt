@@ -1,6 +1,7 @@
 package com.eugenerogov.planmind
 
 import android.app.Application
+import com.eugenerogov.planmind.di.serviceApiModule
 import com.eugenerogov.planmind.di.repositoryModule
 import com.eugenerogov.planmind.di.useCasesModule
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +19,8 @@ class App : Application() {
             modules(
                 listOf(
                     useCasesModule,
-                    repositoryModule
+                    repositoryModule,
+                    serviceApiModule,
                 )
             )
         }

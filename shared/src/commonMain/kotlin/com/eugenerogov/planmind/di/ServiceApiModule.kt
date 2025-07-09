@@ -1,5 +1,6 @@
 package com.eugenerogov.planmind.di
 
+import com.eugenerogov.planmind.data.remote.TokenHolder
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -69,9 +70,10 @@ class TasksServiceImpl(private val client: HttpClient) : TasksService {
 
 }
 
-val networkModule = module {
+val serviceApiModule = module {
 
     single { HostHolder() }
+    single { TokenHolder() }
 
     single {
         val engine = get<HttpClientEngine>()
