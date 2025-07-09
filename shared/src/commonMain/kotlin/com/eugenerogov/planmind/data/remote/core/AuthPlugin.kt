@@ -1,5 +1,6 @@
-package com.eugenerogov.planmind.data.remote
+package com.eugenerogov.planmind.data.remote.core
 
+import com.eugenerogov.planmind.data.remote.core.TokenHolder
 import io.ktor.client.plugins.api.createClientPlugin
 
 fun AuthPlugin(tokenHolder: TokenHolder) = createClientPlugin("AuthPlugin", {}) {

@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.data.remote
+package com.eugenerogov.planmind.data.remote.core
 
 class TokenHolder(initialToken: String = "") {
     var currentToken: String = initialToken

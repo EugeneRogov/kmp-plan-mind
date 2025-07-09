@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.data.remote
+package com.eugenerogov.planmind.data.remote.core
 
 object Endpoint {
     const val SERVER_PORT = 8080
