@@ -114,9 +114,9 @@ private fun ProfileContent(
                     .fillMaxSize()
                     .padding(LocalDim.current.smallX),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(LocalDim.current.smallX)
             ) {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(LocalDim.current.medium))
 
                 // Avatar
                 Box(

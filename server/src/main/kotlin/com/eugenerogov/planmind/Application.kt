@@ -80,7 +80,7 @@ fun Application.module() {
         get(USER_PROFILE) {
             val profile = UserProfile(
                 id = "user123",
-                name = "John Doe",
+                name = "John123 Doeу2у",
                 email = "john.doe@example.com",
                 avatar = "https://example.com/avatar.jpg",
                 createdAt = "2024-01-01T00:00:00Z",
