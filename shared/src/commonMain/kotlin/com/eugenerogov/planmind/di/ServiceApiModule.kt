@@ -1,5 +1,12 @@
 package com.eugenerogov.planmind.di
 
+import com.eugenerogov.planmind.data.remote.AuthService
+import com.eugenerogov.planmind.data.remote.AuthServiceImpl
+import com.eugenerogov.planmind.data.remote.core.Endpoint.BASE_URL
+import com.eugenerogov.planmind.data.remote.core.HostHolder
+import com.eugenerogov.planmind.data.remote.ProfileService
+import com.eugenerogov.planmind.data.remote.ProfileServiceImpl
+import com.eugenerogov.planmind.data.remote.core.TokenHolder
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -17,6 +24,21 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 const val DEBUG = true
 
+val serviceApiModule = module {
+
+    single { HostHolder(BASE_URL) }
+    single { TokenHolder() }
+
+    single {
+        val engine = get<HttpClientEngine>()
+        val hostHolder = get<HostHolder>()
+        createHttpClient(engine, hostHolder)
+    }
+
+    single<AuthService> { AuthServiceImpl(get()) }
+    single<ProfileService> { ProfileServiceImpl(get()) }
+}
+
 fun createHttpClient(
     engine: HttpClientEngine,
     hostHolder: HostHolder
@@ -25,7 +47,7 @@ fun createHttpClient(
         defaultRequest {
             url {
                 protocol = URLProtocol.HTTPS
-                host = hostHolder.host ?: ""
+                host = hostHolder.host
             }
             contentType(ContentType.Application.Json)
             header(HttpHeaders.Connection, "Keep-Alive")
@@ -52,35 +74,3 @@ fun createHttpClient(
         }
     }
 }
-
-interface AuthService {
-
-}
-
-interface TasksService {
-
-}
-
-class AuthServiceImpl(private val client: HttpClient) : AuthService {
-
-}
-
-class TasksServiceImpl(private val client: HttpClient) : TasksService {
-
-}
-
-val networkModule = module {
-
-    single { HostHolder() }
-
-    single {
-        val engine = get<HttpClientEngine>()
-        val hostHolder = get<HostHolder>()
-        createHttpClient(engine, hostHolder)
-    }
-
-    single<AuthService> { AuthServiceImpl(get()) }
-    single<TasksService> { TasksServiceImpl(get()) }
-}
-
-class HostHolder(var host: String? = null)

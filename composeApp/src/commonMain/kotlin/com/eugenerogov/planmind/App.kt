@@ -6,5 +6,6 @@ import com.eugenerogov.planmind.ui.screen.HomeScreen
 
 @Composable
 fun PlanMindApp() {
+    initKoin()
     Navigator(HomeScreen)
 }
