@@ -1,4 +1,4 @@
-package com.eugenerogov.planmind.domain.entities.profile
+package com.eugenerogov.planmind.domain
 
 import kotlinx.serialization.Serializable
 

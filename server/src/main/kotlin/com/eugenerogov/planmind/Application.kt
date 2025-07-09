@@ -7,7 +7,7 @@ import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_PORT
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_PROFILE
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_SIGN_IN
-import com.eugenerogov.planmind.domain.entities.profile.LoginRequest
+import com.eugenerogov.planmind.domain.LoginRequest
 import com.eugenerogov.planmind.domain.entities.profile.UserProfile
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
