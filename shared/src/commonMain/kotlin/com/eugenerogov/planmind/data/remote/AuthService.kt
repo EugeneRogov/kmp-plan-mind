@@ -6,7 +6,6 @@ import com.eugenerogov.planmind.data.remote.core.Endpoint
 import com.eugenerogov.planmind.domain.entities.auth.LoginRequest
 import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
