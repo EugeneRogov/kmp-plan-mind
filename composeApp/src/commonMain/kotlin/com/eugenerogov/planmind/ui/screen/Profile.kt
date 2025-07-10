@@ -1,9 +1,32 @@
 package com.eugenerogov.planmind.ui.screen
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,14 +39,18 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.eugenerogov.planmind.viewmodel.ProfileViewModel
-import com.eugenerogov.planmind.viewmodel.ProfileUiState
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
+import com.eugenerogov.planmind.viewmodel.ProfileUiState
+import com.eugenerogov.planmind.viewmodel.ProfileViewModel
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatformTools
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.back
+import planmind.composeapp.generated.resources.profile
 
 object ProfileScreen : Screen {
     @Composable
@@ -69,18 +96,31 @@ fun ProfileScreenContent(
 
     ProfileContent(
         state = state,
-        viewModel = profileViewModel
+        viewModel = profileViewModel,
+        onNavigateBack = onNavigateBack
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ProfileContent(
     state: ProfileUiState,
-    viewModel: ProfileViewModel
+    viewModel: ProfileViewModel,
+    onNavigateBack: () -> Unit
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
         snackbarHost = { SnackbarHost(hostState = remember { SnackbarHostState() }) },
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(Res.string.profile)) },
+                navigationIcon = {
+                    TextButton(onClick = onNavigateBack) {
+                        Text(stringResource(Res.string.back))
+                    }
+                }
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -227,6 +267,7 @@ fun ProfilePreview() {
             override fun toggleEditing() {}
             override fun saveProfile() {}
             override fun loadProfile() {}
-        }
+        },
+        onNavigateBack = {}
     )
 }
