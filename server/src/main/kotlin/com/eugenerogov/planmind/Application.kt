@@ -7,6 +7,8 @@ import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_PORT
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_PROFILE
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_SIGN_IN
+import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
+import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
 import com.eugenerogov.planmind.domain.LoginRequest
 import com.eugenerogov.planmind.domain.entities.profile.UserProfile
 import io.ktor.serialization.kotlinx.json.json
@@ -64,7 +66,7 @@ fun Application.module() {
 
         post(USER_SIGN_IN) {
             val login = call.receive<LoginRequest>()
-            if (login.email == "user@example.com" && login.password == "password") {
+            if (login.email == DEBUG_EMAIL && login.password == DEBUG_PASSWORD) {
                 val token = JWT.create()
                     .withAudience("planmind")
                     .withIssuer("planmind-server")

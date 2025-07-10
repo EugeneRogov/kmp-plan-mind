@@ -3,6 +3,9 @@ package com.eugenerogov.planmind.data.remote.core
 object Endpoint {
     const val SERVER_PORT = 8080
     const val SERVER_HOST = "0.0.0.0"
+
+    const val DEBUG_EMAIL = "test@test.com"
+    const val DEBUG_PASSWORD = "password"
     val CLIENT_HOST = DebugHost().host
     val BASE_URL = "$CLIENT_HOST:$SERVER_PORT"
 
