@@ -28,7 +28,7 @@ class AuthServiceImpl(private val client: HttpClient) : AuthService {
         password: String
     ): Either<Failure, LoginResponse> {
         return try {
-            val response = client.post(Endpoint.USER_SIGN_IN) {
+            val response = client.post(Endpoint.AUTH_SIGN_IN) {
                 setBody(LoginRequest(username, password))
             }
             val bodyStr = response.bodyAsText()

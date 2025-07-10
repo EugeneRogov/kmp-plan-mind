@@ -2,11 +2,11 @@ package com.eugenerogov.planmind
 
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
-import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN
+import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN_START
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_HOST
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_PORT
-import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_PROFILE
-import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_SIGN_IN
+import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_ME_PROFILE
+import com.eugenerogov.planmind.data.remote.core.Endpoint.AUTH_SIGN_IN
 import com.eugenerogov.planmind.domain.entities.auth.LoginRequest
 import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
 import com.eugenerogov.planmind.domain.entities.profile.UserProfileResponse
@@ -51,12 +51,12 @@ fun Application.module() {
         }
     }
     routing {
-        get(MIND_PLAN) {
+        get(MIND_PLAN_START) {
             val data = mapOf("names" to listOf("Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Helen", "Isaac", "Julia"))
             call.respond(data)
         }
 
-        post(USER_SIGN_IN) {
+        post(AUTH_SIGN_IN) {
             val login = call.receive<LoginRequest>()
             if (login.email == DEBUG_EMAIL && login.password == DEBUG_PASSWORD) {
                 val token = JwtService().generateToken(login.email)
@@ -68,7 +68,7 @@ fun Application.module() {
             }
         }
 
-        get(USER_PROFILE) {
+        get(USER_ME_PROFILE) {
             val profile = UserProfileResponse(
                 id = "user123",
                 name = "John123 Doeу2у",
