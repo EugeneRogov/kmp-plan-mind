@@ -2,13 +2,13 @@ package com.eugenerogov.planmind
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_HOST
+import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
+import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
 import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN
+import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_HOST
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_PORT
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_PROFILE
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_SIGN_IN
-import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
-import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
 import com.eugenerogov.planmind.domain.entities.auth.LoginRequest
 import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
 import com.eugenerogov.planmind.domain.entities.profile.UserProfileResponse
@@ -27,7 +27,6 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
-import java.util.Date
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = SERVER_HOST, module = Application::module)
@@ -44,7 +43,7 @@ fun Application.module() {
     }
     install(Authentication) {
         jwt ("auth-jwt") {
-            realm = "ktor sample app"
+            realm = AuthConfig.REALM
             verifier(
                 JWT
                     .require(Algorithm.HMAC256("secret"))
@@ -68,12 +67,7 @@ fun Application.module() {
         post(USER_SIGN_IN) {
             val login = call.receive<LoginRequest>()
             if (login.email == DEBUG_EMAIL && login.password == DEBUG_PASSWORD) {
-                val token = JWT.create()
-                    .withAudience("planmind")
-                    .withIssuer("planmind-server")
-                    .withClaim("userId", login.email)
-                    .withExpiresAt(Date(System.currentTimeMillis() + 600_000)) // 10 min
-                    .sign(Algorithm.HMAC256("secret"))
+                val token = JwtService().generateToken(login.email)
                 call.respond(LoginResponse(
                     token = token,
                 ))
