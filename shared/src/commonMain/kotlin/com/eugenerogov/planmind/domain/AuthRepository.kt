@@ -6,7 +6,6 @@ import com.eugenerogov.planmind.domain.entities.SignIn
 
 interface AuthRepository {
     suspend fun signIn(
-        stayLogged: Boolean,
         username: String,
         password: String
     ): Either<Failure, SignIn>

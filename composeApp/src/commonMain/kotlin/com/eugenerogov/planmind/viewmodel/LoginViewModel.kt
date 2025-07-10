@@ -68,7 +68,6 @@ class LoginViewModelImpl(
         scope.launch {
             try {
                 val result = authRepository.signIn(
-                    stayLogged = false,
                     username = currentState.login,
                     password = currentState.password
                 )

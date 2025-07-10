@@ -18,10 +18,9 @@ class AuthRepositoryImpl(
     private val authService: AuthService by inject()
 
     override suspend fun signIn(
-        stayLogged: Boolean,
         username: String,
         password: String
-    ) = authService.signIn(stayLogged, username, password)
+    ) = authService.signIn(username, password)
 
     override suspend fun register(
         stayLogged: Boolean,

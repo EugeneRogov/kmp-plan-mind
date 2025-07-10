@@ -13,7 +13,6 @@ import kotlinx.serialization.Serializable
 interface AuthService {
 
     suspend fun signIn(
-        stayLogged: Boolean,
         username: String,
         password: String
     ): Either<Failure, SignIn>
@@ -21,7 +20,6 @@ interface AuthService {
 
 class AuthServiceImpl(private val client: HttpClient) : AuthService {
     override suspend fun signIn(
-        stayLogged: Boolean,
         username: String,
         password: String
     ): Either<Failure, SignIn> {
