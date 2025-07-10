@@ -17,12 +17,13 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.eugenerogov.planmind.viewmodel.ProfileViewModel
-import com.eugenerogov.planmind.viewmodel.ProfileViewModelImpl
 import com.eugenerogov.planmind.viewmodel.ProfileUiState
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.core.parameter.parametersOf
+import org.koin.mp.KoinPlatformTools
 
 object ProfileScreen : Screen {
     @Composable
@@ -40,19 +41,22 @@ fun ProfileScreenContent(
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
-    val profileComponent = remember {
-        ProfileViewModelImpl(
-            componentContext = DefaultComponentContext(
-                lifecycle = LifecycleRegistry()
-            ),
-            onProfileSaved = { /* Profile saved callback */ }
+    val profileViewModel = remember {
+        KoinPlatformTools.defaultContext().get().get<ProfileViewModel>(
+            parameters = {
+                parametersOf(
+                    DefaultComponentContext(lifecycle = LifecycleRegistry()),
+                    { /* Profile saved callback */ }
+                )
+            }
         )
     }
 
     var state by remember { mutableStateOf(ProfileUiState()) }
 
-    LaunchedEffect(profileComponent) {
-        profileComponent.state.subscribe { newState ->
+    LaunchedEffect(profileViewModel) {
+        profileViewModel.loadProfile()
+        profileViewModel.state.subscribe { newState ->
             state = newState
         }
     }
@@ -65,14 +69,14 @@ fun ProfileScreenContent(
 
     ProfileContent(
         state = state,
-        component = profileComponent
+        viewModel = profileViewModel
     )
 }
 
 @Composable
 private fun ProfileContent(
     state: ProfileUiState,
-    component: ProfileViewModel
+    viewModel: ProfileViewModel
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -81,9 +85,9 @@ private fun ProfileContent(
             FloatingActionButton(
                 onClick = {
                     if (state.isEditing) {
-                        component.saveProfile()
+                        viewModel.saveProfile()
                     } else {
-                        component.toggleEditing()
+                        viewModel.toggleEditing()
                     }
                 },
                 containerColor = LocalColorsPalette.current.primary
@@ -111,9 +115,9 @@ private fun ProfileContent(
                     .fillMaxSize()
                     .padding(LocalDim.current.smallX),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(LocalDim.current.smallX)
             ) {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(LocalDim.current.medium))
 
                 // Avatar
                 Box(
@@ -144,7 +148,7 @@ private fun ProfileContent(
                     // First Name
                     OutlinedTextField(
                         value = state.firstName,
-                        onValueChange = component::updateFirstName,
+                        onValueChange = viewModel::updateFirstName,
                         label = { Text("First Name") },
                         placeholder = { Text("Enter your first name") },
                         modifier = Modifier.fillMaxWidth(),
@@ -154,7 +158,7 @@ private fun ProfileContent(
                     // Last Name
                     OutlinedTextField(
                         value = state.lastName,
-                        onValueChange = component::updateLastName,
+                        onValueChange = viewModel::updateLastName,
                         label = { Text("Last Name") },
                         placeholder = { Text("Enter your last name") },
                         modifier = Modifier.fillMaxWidth(),
@@ -176,7 +180,7 @@ private fun ProfileContent(
                         hint = "Email",
                         modifier = Modifier.fillMaxWidth(),
                         text = state.email,
-                        onValueChange = component::updateEmail,
+                        onValueChange = viewModel::updateEmail,
                         inputType = KeyboardType.Email,
                         enabled = !state.isSaving
                     )
@@ -212,7 +216,7 @@ private fun ProfileContent(
 fun ProfilePreview() {
     ProfileContent(
         state = ProfileUiState.preview(),
-        component = object : ProfileViewModel {
+        viewModel = object : ProfileViewModel {
             override val state =
                 com.arkivanov.decompose.value.MutableValue(ProfileUiState.preview())
 

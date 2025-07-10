@@ -30,9 +30,8 @@ val serviceApiModule = module {
     single { TokenHolder() }
 
     single {
-        val engine = get<HttpClientEngine>()
-        val hostHolder = get<HostHolder>()
-        createHttpClient(engine, hostHolder)
+        val hostHolder: HostHolder = get()
+        createHttpClient(hostHolder)
     }
 
     single<AuthService> { AuthServiceImpl(get()) }
@@ -40,13 +39,13 @@ val serviceApiModule = module {
 }
 
 fun createHttpClient(
-    engine: HttpClientEngine,
     hostHolder: HostHolder
 ): HttpClient {
-    return HttpClient(engine) {
+    return HttpClient() {
         defaultRequest {
             url {
-                protocol = URLProtocol.HTTPS
+//                protocol = URLProtocol.HTTPS
+                protocol = URLProtocol.HTTP
                 host = hostHolder.host
             }
             contentType(ContentType.Application.Json)

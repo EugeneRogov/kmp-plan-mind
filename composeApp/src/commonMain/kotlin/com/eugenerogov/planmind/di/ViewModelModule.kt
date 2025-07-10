@@ -1,6 +1,8 @@
 package com.eugenerogov.planmind.di
 
 import com.arkivanov.decompose.ComponentContext
+import com.eugenerogov.planmind.viewmodel.LoginViewModel
+import com.eugenerogov.planmind.viewmodel.LoginViewModelImpl
 import com.eugenerogov.planmind.viewmodel.ProfileViewModel
 import com.eugenerogov.planmind.viewmodel.ProfileViewModelImpl
 import org.koin.dsl.module
@@ -25,6 +27,31 @@ val viewModelModule = module {
         ProfileViewModelImpl(
             componentContext = componentContext,
             onProfileSaved = onProfileSaved
+        )
+    }
+
+    // Provide LoginViewModel with constructor parameters coming from parametersOf()
+    factory<LoginViewModel> { params ->
+        // 1-й параметр — ComponentContext (обязателен)
+        val componentContext = params[0] as ComponentContext
+        // 2-й, 3-й, 4-й параметры — коллбэки (опциональны)
+        val onLoginSuccess: () -> Unit = if (params.size() > 1) params[1] as () -> Unit else {
+            {}
+        }
+        val onNavigateToForgotPassword: () -> Unit =
+            if (params.size() > 2) params[2] as () -> Unit else {
+                {}
+            }
+        val onNavigateToNetworkSettings: () -> Unit =
+            if (params.size() > 3) params[3] as () -> Unit else {
+                {}
+            }
+
+        LoginViewModelImpl(
+            componentContext = componentContext,
+            onLoginSuccess = onLoginSuccess,
+            onNavigateToForgotPassword = onNavigateToForgotPassword,
+            onNavigateToNetworkSettings = onNavigateToNetworkSettings
         )
     }
 }
