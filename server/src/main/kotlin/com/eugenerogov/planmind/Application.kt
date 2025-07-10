@@ -1,7 +1,5 @@
 package com.eugenerogov.planmind
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
 import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN
@@ -44,13 +42,7 @@ fun Application.module() {
     install(Authentication) {
         jwt ("auth-jwt") {
             realm = AuthConfig.REALM
-            verifier(
-                JWT
-                    .require(Algorithm.HMAC256("secret"))
-                    .withAudience("planmind")
-                    .withIssuer("planmind-server")
-                    .build()
-            )
+            verifier(JwtService().getJwtVerifier())
             validate { credential ->
                 if (credential.payload.getClaim("userId")
                         .asString() != ""
