@@ -6,7 +6,7 @@ import com.eugenerogov.planmind.Failure
 import com.eugenerogov.planmind.data.remote.AuthService
 import com.eugenerogov.planmind.data.remote.ProfileService
 import com.eugenerogov.planmind.domain.AuthRepository
-import com.eugenerogov.planmind.domain.entities.SignIn
+import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -26,7 +26,7 @@ class AuthRepositoryImpl(
         stayLogged: Boolean,
         username: String,
         password: String
-    ): Either<Failure, SignIn> {
+    ): Either<Failure, LoginResponse> {
         TODO("Not yet implemented")
     }
 

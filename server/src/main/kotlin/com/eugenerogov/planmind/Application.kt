@@ -9,8 +9,9 @@ import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_PROFILE
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_SIGN_IN
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
-import com.eugenerogov.planmind.domain.LoginRequest
-import com.eugenerogov.planmind.domain.entities.profile.UserProfile
+import com.eugenerogov.planmind.domain.entities.auth.LoginRequest
+import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
+import com.eugenerogov.planmind.domain.entities.profile.UserProfileResponse
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -73,14 +74,16 @@ fun Application.module() {
                     .withClaim("userId", login.email)
                     .withExpiresAt(Date(System.currentTimeMillis() + 600_000)) // 10 min
                     .sign(Algorithm.HMAC256("secret"))
-                call.respond(mapOf("token" to token))
+                call.respond(LoginResponse(
+                    token = token,
+                ))
             } else {
                 call.respond(mapOf("error" to "Invalid credentials"))
             }
         }
 
         get(USER_PROFILE) {
-            val profile = UserProfile(
+            val profile = UserProfileResponse(
                 id = "user123",
                 name = "John123 Doeу2у",
                 email = "john.doe@example.com",

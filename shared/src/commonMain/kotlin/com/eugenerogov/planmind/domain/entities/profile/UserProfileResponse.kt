@@ -3,7 +3,7 @@ package com.eugenerogov.planmind.domain.entities.profile
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserProfile(
+data class UserProfileResponse(
     val id: String,
     val name: String,
     val email: String,
