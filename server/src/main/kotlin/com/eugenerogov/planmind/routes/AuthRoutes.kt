@@ -5,6 +5,7 @@ import com.eugenerogov.planmind.JwtService
 import com.eugenerogov.planmind.data.remote.core.Endpoint.AUTH_REFRESH_TOKEN
 import com.eugenerogov.planmind.data.remote.core.Endpoint.AUTH_REGISTER
 import com.eugenerogov.planmind.data.remote.core.Endpoint.AUTH_SIGN_IN
+import com.eugenerogov.planmind.data.remote.core.Endpoint.AUTH_LOGOUT
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
 import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
 import com.eugenerogov.planmind.domain.entities.auth.LoginRequest

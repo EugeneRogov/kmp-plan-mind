@@ -13,7 +13,6 @@ androidx-testExt = "1.2.1"
 koin = "4.1.0"
 navigation = "2.9.1"
 compose-multiplatform = "1.8.2"
-compose = "1.8.3"
 junit = "4.13.2"
 kotlin = "2.2.0"
 kotlinx-serialization = "1.9.0"
@@ -25,6 +24,9 @@ arrow = "2.1.2"
 logback = "1.5.18"
 decompose = "3.3.0"
 decompose-essenty = "2.5.0"
+exposed = "0.61.0"
+postgresql = "42.7.7"
+hikariCP = "6.3.0"
 
 [libraries]
 # Kotlin
@@ -87,6 +89,12 @@ ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = 
 auth0-jwt = { group = "com.auth0", name = "java-jwt", version.ref = "javaJwt" }
 
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+hikariCP = { module = "com.zaxxer:HikariCP", version.ref = "hikariCP" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 
