@@ -55,6 +55,7 @@ fun ProfileScreenContent(
     var state by remember { mutableStateOf(ProfileUiState()) }
 
     LaunchedEffect(profileViewModel) {
+        profileViewModel.loadProfile()
         profileViewModel.state.subscribe { newState ->
             state = newState
         }

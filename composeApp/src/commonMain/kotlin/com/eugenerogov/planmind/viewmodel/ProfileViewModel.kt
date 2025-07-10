@@ -41,7 +41,7 @@ class ProfileViewModelImpl(
     private val profileRepository: ProfileRepository by inject()
 
     init {
-        loadProfile()
+//        loadProfile()
     }
 
     override fun updateFirstName(firstName: String) {
