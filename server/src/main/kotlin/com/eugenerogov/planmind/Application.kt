@@ -2,7 +2,7 @@ package com.eugenerogov.planmind
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.eugenerogov.planmind.data.remote.core.Endpoint.HOST
+import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_HOST
 import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_PORT
 import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_PROFILE
@@ -27,7 +27,7 @@ import kotlinx.serialization.json.Json
 import java.util.Date
 
 fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = HOST, module = Application::module)
+    embeddedServer(Netty, port = SERVER_PORT, host = SERVER_HOST, module = Application::module)
         .start(wait = true)
 }
 
