@@ -1,15 +1,10 @@
 package com.eugenerogov.planmind
 
-import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
-import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
-import com.eugenerogov.planmind.data.remote.core.Endpoint.MIND_PLAN_START
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_HOST
 import com.eugenerogov.planmind.data.remote.core.Endpoint.SERVER_PORT
-import com.eugenerogov.planmind.data.remote.core.Endpoint.USER_ME_PROFILE
-import com.eugenerogov.planmind.data.remote.core.Endpoint.AUTH_SIGN_IN
-import com.eugenerogov.planmind.domain.entities.auth.LoginRequest
-import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
-import com.eugenerogov.planmind.domain.entities.profile.UserProfileResponse
+import com.eugenerogov.planmind.routes.authRoutes
+import com.eugenerogov.planmind.routes.planMindRoutes
+import com.eugenerogov.planmind.routes.userRoutes
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -19,10 +14,6 @@ import io.ktor.server.auth.jwt.jwt
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.routing.get
-import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
 
@@ -51,38 +42,8 @@ fun Application.module() {
         }
     }
     routing {
-        get(MIND_PLAN_START) {
-            val data = mapOf("names" to listOf("Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Helen", "Isaac", "Julia"))
-            call.respond(data)
-        }
-
-        post(AUTH_SIGN_IN) {
-            val login = call.receive<LoginRequest>()
-            if (login.email == DEBUG_EMAIL && login.password == DEBUG_PASSWORD) {
-                val token = JwtService().generateToken(login.email)
-                call.respond(LoginResponse(
-                    token = token,
-                ))
-            } else {
-                call.respond(mapOf("error" to "Invalid credentials"))
-            }
-        }
-
-        get(USER_ME_PROFILE) {
-            val profile = UserProfileResponse(
-                id = "user123",
-                name = "John123 Doeу2у",
-                email = "john.doe@example.com",
-                avatar = "https://example.com/avatar.jpg",
-                createdAt = "2024-01-01T00:00:00Z",
-                preferences = mapOf(
-                    "theme" to "dark",
-                    "language" to "en",
-                    "notifications" to "true"
-                )
-            )
-            call.respond(profile)
-        }
-
+        authRoutes()
+        userRoutes()
+        planMindRoutes()
     }
 }

@@ -13,7 +13,7 @@ object Endpoint {
 
     val BASE_URL = "$CLIENT_HOST:$SERVER_PORT"
 
-    // region --- Authentication ---
+    // region --- Auth ---
     private const val AUTH_BASE = "$API_V1/auth"
     const val AUTH_SIGN_IN = "$AUTH_BASE/sign-in"
     const val AUTH_REGISTER = "$AUTH_BASE/register"
