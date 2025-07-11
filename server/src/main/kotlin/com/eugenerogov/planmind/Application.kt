@@ -28,10 +28,10 @@ fun main() {
 
 fun Application.module() {
     // init and migration db
-    DatabaseConfig.init()
-    transaction {
-        SchemaUtils.create(UserProfileTable)
-    }
+//    DatabaseConfig.init()
+//    transaction {
+//        SchemaUtils.create(UserProfileTable)
+//    }
 
     install(ContentNegotiation) {
         json(Json {
