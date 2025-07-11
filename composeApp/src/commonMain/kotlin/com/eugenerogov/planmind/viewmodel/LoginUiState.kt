@@ -1,5 +1,8 @@
 package com.eugenerogov.planmind.viewmodel
 
+import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_EMAIL
+import com.eugenerogov.planmind.data.remote.core.Endpoint.DEBUG_PASSWORD
+
 data class LoginUiState(
     val inProgress: Boolean = false,
     val login: String = "",
@@ -16,7 +19,8 @@ data class LoginUiState(
         fun preview() = LoginUiState(
             inProgress = false,
             isLoginEnabled = true,
-            login = "9812378123"
+            login = DEBUG_EMAIL,
+            password = DEBUG_PASSWORD
         )
     }
 }

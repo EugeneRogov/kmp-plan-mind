@@ -2,20 +2,19 @@ package com.eugenerogov.planmind.domain
 
 import arrow.core.Either
 import com.eugenerogov.planmind.Failure
-import com.eugenerogov.planmind.domain.entities.SignIn
+import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
 
 interface AuthRepository {
     suspend fun signIn(
-        stayLogged: Boolean,
         username: String,
         password: String
-    ): Either<Failure, SignIn>
+    ): Either<Failure, LoginResponse>
 
     suspend fun register(
         stayLogged: Boolean,
         username: String,
         password: String
-    ): Either<Failure, SignIn>
+    ): Either<Failure, LoginResponse>
 
     suspend fun logout(): Either<String, String>
 }

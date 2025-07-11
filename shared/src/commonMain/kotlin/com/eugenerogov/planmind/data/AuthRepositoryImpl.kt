@@ -3,25 +3,30 @@ package com.eugenerogov.planmind.data
 import arrow.core.Either
 import arrow.core.flatMap
 import com.eugenerogov.planmind.Failure
+import com.eugenerogov.planmind.data.remote.AuthService
+import com.eugenerogov.planmind.data.remote.ProfileService
 import com.eugenerogov.planmind.domain.AuthRepository
-import com.eugenerogov.planmind.domain.entities.SignIn
+import com.eugenerogov.planmind.domain.entities.auth.LoginResponse
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import kotlin.getValue
 
 class AuthRepositoryImpl(
 
-) : AuthRepository {
+) : AuthRepository, KoinComponent {
+
+    private val authService: AuthService by inject()
+
     override suspend fun signIn(
-        stayLogged: Boolean,
         username: String,
         password: String
-    ): Either<Failure, SignIn> {
-        TODO("Not yet implemented")
-    }
+    ) = authService.signIn(username, password)
 
     override suspend fun register(
         stayLogged: Boolean,
         username: String,
         password: String
-    ): Either<Failure, SignIn> {
+    ): Either<Failure, LoginResponse> {
         TODO("Not yet implemented")
     }
 

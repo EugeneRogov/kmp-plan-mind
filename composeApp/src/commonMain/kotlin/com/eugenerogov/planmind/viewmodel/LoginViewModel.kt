@@ -4,11 +4,15 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
+import com.eugenerogov.planmind.domain.AuthRepository
+import com.eugenerogov.planmind.domain.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import kotlin.getValue
 
 interface LoginViewModel {
     val state: Value<LoginUiState>
@@ -27,12 +31,14 @@ class LoginViewModelImpl(
     private val onLoginSuccess: () -> Unit,
     private val onNavigateToForgotPassword: () -> Unit,
     private val onNavigateToNetworkSettings: () -> Unit
-) : LoginViewModel, ComponentContext by componentContext {
+) : LoginViewModel, ComponentContext by componentContext, KoinComponent {
 
     private val _state = MutableValue(LoginUiState())
     override val state: Value<LoginUiState> = _state
 
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    private val authRepository: AuthRepository by inject()
 
     override fun updateLogin(login: String) {
         _state.update { it.copy(login = login) }
@@ -61,22 +67,24 @@ class LoginViewModelImpl(
 
         scope.launch {
             try {
-                // Simulate login process
-                delay(1000)
-
-                // Here you would typically call your authentication service
-                // For now, we'll just simulate a successful login
-                if (currentState.login == "test@test.com" && currentState.password == "password") {
-                    _state.update { it.copy(inProgress = false) }
-                    onLoginSuccess()
-                } else {
-                    _state.update {
-                        it.copy(
-                            inProgress = false,
-                            errorMessage = "Invalid credentials"
-                        )
+                val result = authRepository.signIn(
+                    username = currentState.login,
+                    password = currentState.password
+                )
+                result.fold(
+                    ifLeft = { failure ->
+                        _state.update {
+                            it.copy(
+                                inProgress = false,
+                                errorMessage = failure.toString()
+                            )
+                        }
+                    },
+                    ifRight = {
+                        _state.update { it.copy(inProgress = false) }
+                        onLoginSuccess()
                     }
-                }
+                )
             } catch (e: Exception) {
                 _state.update {
                     it.copy(
