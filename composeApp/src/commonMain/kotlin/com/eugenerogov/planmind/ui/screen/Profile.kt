@@ -1,5 +1,9 @@
 package com.eugenerogov.planmind.ui.screen
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,11 +14,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -31,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -107,7 +116,8 @@ fun ProfileScreenContent(
         )
     } else {
         UnauthenticatedProfileContent(
-            onGoToAuth = onNavigateToAuth
+            onGoToAuth = onNavigateToAuth,
+            onGoogleSignIn = profileViewModel::signInWithGoogle
         )
     }
 }
@@ -264,7 +274,8 @@ private fun AuthenticatedProfileContent(
 
 @Composable
 private fun UnauthenticatedProfileContent(
-    onGoToAuth: () -> Unit
+    onGoToAuth: () -> Unit,
+    onGoogleSignIn: () -> Unit = {}
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background
@@ -309,6 +320,53 @@ private fun UnauthenticatedProfileContent(
             ) {
                 Text("Go to auth")
             }
+
+            Spacer(modifier = Modifier.height(LocalDim.current.small))
+
+            OutlinedButton(
+                onClick = onGoogleSignIn,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(1.dp, Color(0xFFDADCE0)),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = Color.White,
+                    contentColor = Color(0xFF3C4043)
+                )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    // Google "G" logo using colored circles to simulate the Google logo
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(
+                                Color.Transparent,
+                                CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        // Simple Google "G" representation using text
+                        Text(
+                            text = "G",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF4285F4) // Google Blue
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = "Войти через Google",
+                        color = Color(0xFF3C4043),
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 14.sp
+                    )
+                }
+            }
         }
     }
 }
@@ -331,6 +389,7 @@ fun ProfilePreview() {
             override fun loadProfile() {}
             override fun checkAuthStatus() {}
             override fun goToAuth() {}
+            override fun signInWithGoogle() {}
         },
         onNavigateBack = {}
     )

@@ -27,6 +27,7 @@ interface ProfileViewModel {
     fun loadProfile()
     fun checkAuthStatus()
     fun goToAuth()
+    fun signInWithGoogle()
 }
 
 class ProfileViewModelImpl(
@@ -147,5 +148,9 @@ class ProfileViewModelImpl(
                 }
             )
         }
+    }
+
+    override fun signInWithGoogle() {
+        // TO DO: Implement Google Sign-In functionality here
     }
 }
