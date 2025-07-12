@@ -9,12 +9,10 @@ data class RegisterUiState(
     val email: String = "",
     val password: String = "",
     val confirmPassword: String = "",
-    val stayLogged: Boolean = false,
     val isUsernameEnabled: Boolean = true,
     val isEmailEnabled: Boolean = true,
     val isPasswordEnabled: Boolean = true,
     val isConfirmPasswordEnabled: Boolean = true,
-    val isStayLoggedEnabled: Boolean = true,
     val errorMessage: String = "",
     val debugMenuExpanded: Boolean = false
 ) {

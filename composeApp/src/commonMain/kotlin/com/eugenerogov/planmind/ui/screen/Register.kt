@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -171,23 +170,8 @@ private fun RegisterContent(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Stay logged checkbox
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = state.stayLogged,
-                    onCheckedChange = component::updateStayLogged,
-                    enabled = state.isStayLoggedEnabled && !state.inProgress
-                )
-                Text(
-                    text = "Оставаться в системе",
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Register button
             Button(
@@ -240,7 +224,6 @@ fun RegisterPreview() {
             override fun updateEmail(email: String) {}
             override fun updatePassword(password: String) {}
             override fun updateConfirmPassword(confirmPassword: String) {}
-            override fun updateStayLogged(stayLogged: Boolean) {}
             override fun updateDebugMenuExpanded(expanded: Boolean) {}
             override fun onClickRegister() {}
             override fun onClickBackToLogin() {}

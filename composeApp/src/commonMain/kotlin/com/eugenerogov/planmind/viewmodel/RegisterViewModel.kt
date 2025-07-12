@@ -20,7 +20,6 @@ interface RegisterViewModel {
     fun updateEmail(email: String)
     fun updatePassword(password: String)
     fun updateConfirmPassword(confirmPassword: String)
-    fun updateStayLogged(stayLogged: Boolean)
     fun updateDebugMenuExpanded(expanded: Boolean)
     fun onClickRegister()
     fun onClickBackToLogin()
@@ -55,10 +54,6 @@ class RegisterViewModelImpl(
         _state.update { it.copy(confirmPassword = confirmPassword) }
     }
 
-    override fun updateStayLogged(stayLogged: Boolean) {
-        _state.update { it.copy(stayLogged = stayLogged) }
-    }
-
     override fun updateDebugMenuExpanded(expanded: Boolean) {
         _state.update { it.copy(debugMenuExpanded = expanded) }
     }
@@ -89,7 +84,7 @@ class RegisterViewModelImpl(
         scope.launch {
             try {
                 val result = authRepository.register(
-                    stayLogged = currentState.stayLogged,
+                    stayLogged = false,
                     username = currentState.username,
                     password = currentState.password
                 )
