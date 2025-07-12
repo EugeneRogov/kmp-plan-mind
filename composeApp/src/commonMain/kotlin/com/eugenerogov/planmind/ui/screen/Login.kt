@@ -141,7 +141,26 @@ private fun LoginContent(
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // "Напомнить пароль?" clickable text
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                TextButton(
+                    onClick = component::onClickForgotPassword,
+                    enabled = !state.inProgress
+                ) {
+                    Text(
+                        text = "Напомнить пароль?",
+                        fontSize = 14.sp,
+                        color = LocalColorsPalette.current.primary
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Login button (updated to match "Войти в аккаунт" modern style)
             Button(
