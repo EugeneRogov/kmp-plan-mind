@@ -17,6 +17,7 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
 import com.eugenerogov.planmind.database.DatabaseConfig
+import com.eugenerogov.planmind.database.RedisConfig
 import com.eugenerogov.planmind.domain.entities.profile.UserProfileTable
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -28,10 +29,11 @@ fun main() {
 
 fun Application.module() {
     // init and migration db
-//    DatabaseConfig.init()
-//    transaction {
-//        SchemaUtils.create(UserProfileTable)
-//    }
+    DatabaseConfig.init()
+    RedisConfig.init()
+    transaction {
+        SchemaUtils.create(UserProfileTable)
+    }
 
     install(ContentNegotiation) {
         json(Json {

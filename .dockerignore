@@ -1,0 +1,12 @@
+build/
+.gradle/
+.idea/
+*.iml
+*.log
+.DS_Store
+composeApp/build/
+server/build/
+shared/build/
+kotlin-js-store/
+iosApp/
+local.properties

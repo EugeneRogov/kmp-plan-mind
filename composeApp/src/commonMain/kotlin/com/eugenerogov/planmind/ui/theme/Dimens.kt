@@ -36,5 +36,18 @@ data class Dimensions(
     val small5X: Dp = 2.dp,
     val modalDialogAlpha: Float = 0.3f,
     val dialogBackgroundBlur: Dp = 16.dp,
-    val cardElevation: Dp = 1.dp
+    val cardElevation: Dp = 1.dp,
+    val buttonHeightLarge: Dp = 48.dp,
+    val buttonHeightExtra: Dp = 58.dp,
+    val inputFieldHeight: Dp = 64.dp,
+    val logoSize: Dp = 80.dp,
+    val avatarLarge: Dp = 120.dp,
+    val buttonWidth: Dp = 358.dp,
+    val roundingLarge: Dp = 30.dp,
+    val iconMedium: Dp = 22.dp,
+    val elevationSmall: Dp = 2.dp,
+    val elevationMedium: Dp = 4.dp,
+    val elevationLarge: Dp = 6.dp,
+    val elevationExtra: Dp = 8.dp,
+    val borderStrokeThick: Dp = 1.5.dp
 )

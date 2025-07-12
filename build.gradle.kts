@@ -8,5 +8,11 @@ plugins {
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
+    // ./gradlew --refresh-dependencies :server:compileKotlin
+    // ./gradlew server:build -x test
 
     // ./gradlew wasmJsBrowserDevelopmentRun
+
+    // docker-compose up --build
+    // docker-compose down
+    // docker-compose up --build server

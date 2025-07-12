@@ -34,4 +34,9 @@ class AuthRepositoryImpl(
         TODO("Not yet implemented")
     }
 
+    override suspend fun isAuthenticated(): Boolean {
+        // TODO: Implement proper authentication check
+        // For now, return false as placeholder
+        return false
+    }
 }

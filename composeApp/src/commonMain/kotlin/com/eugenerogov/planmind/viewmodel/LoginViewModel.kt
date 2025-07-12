@@ -59,6 +59,7 @@ class LoginViewModelImpl(
     override fun onClickLogin() {
         val currentState = _state.value
         if (currentState.login.isBlank() || currentState.password.isBlank()) {
+            // TODO: Use string resource for error message
             _state.update { it.copy(errorMessage = "Please fill in all fields") }
             return
         }

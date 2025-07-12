@@ -7,10 +7,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.eugenerogov.planmind.ui.component.typography.LabelLarge
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalDim
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.demo_button_text
 
 @Composable
 fun ButtonLarge(
@@ -20,13 +23,15 @@ fun ButtonLarge(
     visible: Boolean = true,
     enabled: Boolean = true
 ) {
+    val dim = LocalDim.current
+
     AnimatedVisibility(
         visible = visible
     ) {
         Button(
             modifier =
             modifier
-                .size(height = 58.dp, width = 358.dp),
+                .size(height = dim.buttonHeightExtra, width = dim.buttonWidth),
             onClick = { onClick.invoke() },
             content = {
                 LabelLarge(
@@ -51,7 +56,7 @@ fun ButtonLarge(
 fun ButtonLargePreview() {
     ButtonLarge(
         onClick = {},
-        text = "Get verification code"
+        text = stringResource(Res.string.demo_button_text)
 //        image = painterResource(R.drawable.button_onoff_indicator_on)
     )
 }

@@ -9,38 +9,49 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.core.screen.Screen
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.hello_world
 
-@Composable
-fun DefaultScreen() {
-    DefaultContent()
+object MainScreen : Screen {
+    @Composable
+    override fun Content() {
+        MainScreen()
+    }
 }
 
 @Composable
-private fun DefaultContent() {
+fun MainScreen() {
+    MainContent()
+}
+
+@Composable
+private fun MainContent() {
     Scaffold(
         containerColor = LocalColorsPalette.current.background
     ) { innerPadding ->
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(
-                    horizontal = LocalDim.current.small
-                ),
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(
+                        horizontal = LocalDim.current.small
+                    ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Hello, World!")
+            Text(stringResource(Res.string.hello_world))
         }
     }
 }
 
 @Preview()
 @Composable
-fun DefaultPreview() {
-    DefaultContent()
+fun MainPreview() {
+    MainContent()
 }
