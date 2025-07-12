@@ -21,7 +21,20 @@ object HomeScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         HomeContent(
             onNavigateToLogin = { navigator.push(LoginScreen) },
-            onNavigateToProfile = { navigator.push(ProfileScreen) }
+            onNavigateToProfile = { navigator.push(ProfileScreen) },
+            initialTab = 0
+        )
+    }
+}
+
+object HomeWithProfileScreen : Screen {
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+        HomeContent(
+            onNavigateToLogin = { navigator.push(LoginScreen) },
+            onNavigateToProfile = { navigator.push(ProfileScreen) },
+            initialTab = 1
         )
     }
 }
@@ -29,9 +42,11 @@ object HomeScreen : Screen {
 @Composable
 fun HomeContent(
     onNavigateToLogin: () -> Unit = {},
-    onNavigateToProfile: () -> Unit = {}
+    onNavigateToProfile: () -> Unit = {},
+    initialTab: Int = 0
 ) {
-    var selectedTab by remember { mutableStateOf(0) }
+    val navigator = LocalNavigator.currentOrThrow
+    var selectedTab by remember { mutableStateOf(initialTab) }
 
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -61,12 +76,21 @@ fun HomeContent(
         Box(modifier = Modifier.padding(innerPadding)) {
             when (selectedTab) {
                 0 -> MainScreenTab(
-                    onNavigateToLogin = onNavigateToLogin,
+                    onNavigateToLogin = {
+                        onNavigateToLogin()
+                    },
                     onNavigateToProfile = onNavigateToProfile
                 )
                 1 -> ProfileScreenContent(
-                    onNavigateBack = { /* Handle back navigation if needed */ },
-                    onNavigateToAuth = onNavigateToLogin
+                    onNavigateBack = { selectedTab = 0 },
+                    onNavigateToAuth = {
+                        navigator.replaceAll(HomeWithProfileScreen)
+                        navigator.push(LoginScreen)
+                    }
+                )
+                else -> MainScreenTab(
+                    onNavigateToLogin = onNavigateToLogin,
+                    onNavigateToProfile = onNavigateToProfile
                 )
             }
         }
