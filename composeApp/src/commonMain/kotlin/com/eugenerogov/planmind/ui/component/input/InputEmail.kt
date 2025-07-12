@@ -36,7 +36,7 @@ fun InputEmail(
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .height(64.dp)
             .focusRequester(focusRequester),
         value = text,
         onValueChange = onValueChange,
@@ -47,7 +47,7 @@ fun InputEmail(
         label = {
             Text(
                 text = hint,
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 color = if (enabled) LocalColorsPalette.current.onSurfaceVariant
                 else LocalColorsPalette.current.onSurfaceVariant.copy(alpha = 0.6f)
