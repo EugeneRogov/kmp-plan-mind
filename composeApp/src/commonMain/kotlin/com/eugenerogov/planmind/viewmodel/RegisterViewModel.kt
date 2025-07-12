@@ -65,16 +65,19 @@ class RegisterViewModelImpl(
         if (currentState.username.isBlank() || currentState.email.isBlank() ||
             currentState.password.isBlank() || currentState.confirmPassword.isBlank()
         ) {
+            // TODO: Use string resource for error message
             _state.update { it.copy(errorMessage = "Please fill in all fields") }
             return
         }
 
         if (currentState.password != currentState.confirmPassword) {
+            // TODO: Use string resource for error message
             _state.update { it.copy(errorMessage = "Passwords do not match") }
             return
         }
 
         if (currentState.password.length < 6) {
+            // TODO: Use string resource for error message
             _state.update { it.copy(errorMessage = "Password must be at least 6 characters") }
             return
         }

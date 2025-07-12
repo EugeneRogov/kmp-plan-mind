@@ -26,7 +26,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.demo_password_label
+import planmind.composeapp.generated.resources.demo_password_placeholder
 
 @Composable
 fun InputField(
@@ -118,8 +122,8 @@ fun InputFieldPreview() {
     InputField(
         value = "",
         onValueChange = {},
-        label = "Password",
-        placeholder = "Enter your password",
+        label = stringResource(Res.string.demo_password_label),
+        placeholder = stringResource(Res.string.demo_password_placeholder),
         isPassword = true
     )
 }

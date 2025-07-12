@@ -61,6 +61,20 @@ import org.koin.mp.KoinPlatformTools
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.back
 import planmind.composeapp.generated.resources.profile
+import planmind.composeapp.generated.resources.save
+import planmind.composeapp.generated.resources.edit
+import planmind.composeapp.generated.resources.first_name_label
+import planmind.composeapp.generated.resources.first_name_placeholder
+import planmind.composeapp.generated.resources.last_name_label
+import planmind.composeapp.generated.resources.last_name_placeholder
+import planmind.composeapp.generated.resources.email_hint
+import planmind.composeapp.generated.resources.saving
+import planmind.composeapp.generated.resources.sign_in_to_account
+import planmind.composeapp.generated.resources.login_to_access_profile
+import planmind.composeapp.generated.resources.login_to_account
+import planmind.composeapp.generated.resources.or
+import planmind.composeapp.generated.resources.sign_in_with_google
+import planmind.composeapp.generated.resources.sign_in_with_vk
 
 object ProfileScreen : Screen {
     @Composable
@@ -156,7 +170,9 @@ private fun AuthenticatedProfileContent(
                 containerColor = LocalColorsPalette.current.primary
             ) {
                 Text(
-                    text = if (state.isEditing) "Save" else "Edit",
+                    text = if (state.isEditing) stringResource(Res.string.save) else stringResource(
+                        Res.string.edit
+                    ),
                     color = LocalColorsPalette.current.onPrimary
                 )
             }
@@ -212,8 +228,8 @@ private fun AuthenticatedProfileContent(
                     InputField(
                         value = state.firstName,
                         onValueChange = viewModel::updateFirstName,
-                        label = "Имя",
-                        placeholder = "Введите ваше имя",
+                        label = stringResource(Res.string.first_name_label),
+                        placeholder = stringResource(Res.string.first_name_placeholder),
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !state.isSaving
                     )
@@ -224,8 +240,8 @@ private fun AuthenticatedProfileContent(
                     InputField(
                         value = state.lastName,
                         onValueChange = viewModel::updateLastName,
-                        label = "Фамилия",
-                        placeholder = "Введите вашу фамилию",
+                        label = stringResource(Res.string.last_name_label),
+                        placeholder = stringResource(Res.string.last_name_placeholder),
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !state.isSaving
                     )
@@ -242,7 +258,7 @@ private fun AuthenticatedProfileContent(
                 // Email
                 if (state.isEditing) {
                     InputEmail(
-                        hint = "Email",
+                        hint = stringResource(Res.string.email_hint),
                         modifier = Modifier.fillMaxWidth(),
                         text = state.email,
                         onValueChange = viewModel::updateEmail,
@@ -266,7 +282,7 @@ private fun AuthenticatedProfileContent(
                             modifier = Modifier.size(dim.smallX)
                         )
                         Text(
-                            text = "Saving...",
+                            text = stringResource(Res.string.saving),
                             color = LocalColorsPalette.current.onSurface
                         )
                     }
@@ -304,7 +320,7 @@ private fun UnauthenticatedProfileContent(
             Spacer(modifier = Modifier.height(dim.medium))
 
             Text(
-                text = "Войдите в свой аккаунт",
+                text = stringResource(Res.string.sign_in_to_account),
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = LocalColorsPalette.current.onSurface
@@ -313,7 +329,7 @@ private fun UnauthenticatedProfileContent(
             Spacer(modifier = Modifier.height(dim.small))
 
             Text(
-                text = "Для доступа к профилю необходимо авторизоваться",
+                text = stringResource(Res.string.login_to_access_profile),
                 fontSize = 16.sp,
                 color = LocalColorsPalette.current.onSurface.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center
@@ -338,7 +354,7 @@ private fun UnauthenticatedProfileContent(
                 )
             ) {
                 Text(
-                    text = "Войти в аккаунт",
+                    text = stringResource(Res.string.login_to_account),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )
@@ -358,7 +374,7 @@ private fun UnauthenticatedProfileContent(
                         .background(LocalColorsPalette.current.onSurface.copy(alpha = 0.2f))
                 )
                 Text(
-                    text = "или",
+                    text = stringResource(Res.string.or),
                     modifier = Modifier.padding(horizontal = dim.smallX),
                     color = LocalColorsPalette.current.onSurface.copy(alpha = 0.6f),
                     fontSize = 14.sp
@@ -413,7 +429,7 @@ private fun UnauthenticatedProfileContent(
                     }
                     Spacer(modifier = Modifier.width(dim.small2X))
                     Text(
-                        text = "Войти через Google",
+                        text = stringResource(Res.string.sign_in_with_google),
                         color = Color(0xFF3C4043),
                         fontWeight = FontWeight.Medium,
                         fontSize = 15.sp
@@ -462,7 +478,7 @@ private fun UnauthenticatedProfileContent(
                     }
                     Spacer(modifier = Modifier.width(dim.small2X))
                     Text(
-                        text = "Войти через VK ID",
+                        text = stringResource(Res.string.sign_in_with_vk),
                         color = Color.White,
                         fontWeight = FontWeight.Medium,
                         fontSize = 15.sp

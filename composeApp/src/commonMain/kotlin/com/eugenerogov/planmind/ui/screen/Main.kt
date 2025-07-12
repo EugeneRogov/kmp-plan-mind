@@ -12,7 +12,10 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.hello_world
 
 object MainScreen : Screen {
     @Composable
@@ -42,7 +45,7 @@ private fun MainContent() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Hello, World!")
+            Text(stringResource(Res.string.hello_world))
         }
     }
 }

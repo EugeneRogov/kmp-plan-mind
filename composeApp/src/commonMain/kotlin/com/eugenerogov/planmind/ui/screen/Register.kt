@@ -45,6 +45,15 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.email_hint
+import planmind.composeapp.generated.resources.username_label
+import planmind.composeapp.generated.resources.username_placeholder
+import planmind.composeapp.generated.resources.password_label
+import planmind.composeapp.generated.resources.password_placeholder
+import planmind.composeapp.generated.resources.confirm_password_label
+import planmind.composeapp.generated.resources.confirm_password_placeholder
+import planmind.composeapp.generated.resources.register_progress
+import planmind.composeapp.generated.resources.register_title
+import planmind.composeapp.generated.resources.already_have_account
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatformTools
 
@@ -132,8 +141,8 @@ private fun RegisterContent(
             InputField(
                 value = state.username,
                 onValueChange = component::updateUsername,
-                label = "Имя пользователя",
-                placeholder = "Введите имя пользователя",
+                label = stringResource(Res.string.username_label),
+                placeholder = stringResource(Res.string.username_placeholder),
                 modifier = Modifier.fillMaxWidth(),
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next,
@@ -159,8 +168,8 @@ private fun RegisterContent(
             InputField(
                 value = state.password,
                 onValueChange = component::updatePassword,
-                label = "Пароль",
-                placeholder = "Введите пароль",
+                label = stringResource(Res.string.password_label),
+                placeholder = stringResource(Res.string.password_placeholder),
                 modifier = Modifier.fillMaxWidth(),
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Next,
@@ -174,8 +183,8 @@ private fun RegisterContent(
             InputField(
                 value = state.confirmPassword,
                 onValueChange = component::updateConfirmPassword,
-                label = "Подтвердите пароль",
-                placeholder = "Повторите пароль",
+                label = stringResource(Res.string.confirm_password_label),
+                placeholder = stringResource(Res.string.confirm_password_placeholder),
                 modifier = Modifier.fillMaxWidth(),
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
@@ -206,7 +215,9 @@ private fun RegisterContent(
                 )
             ) {
                 Text(
-                    text = if (state.inProgress) "Создаём аккаунт..." else "Зарегистрироваться",
+                    text = if (state.inProgress) stringResource(Res.string.register_progress) else stringResource(
+                        Res.string.register_title
+                    ),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )
@@ -220,7 +231,7 @@ private fun RegisterContent(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !state.inProgress
             ) {
-                Text("Уже есть аккаунт? Войти")
+                Text(stringResource(Res.string.already_have_account))
             }
         }
     }

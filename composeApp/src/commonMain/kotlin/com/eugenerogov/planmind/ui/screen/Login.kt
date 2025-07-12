@@ -46,6 +46,13 @@ import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatformTools
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.email_hint
+import planmind.composeapp.generated.resources.password_label
+import planmind.composeapp.generated.resources.password_placeholder
+import planmind.composeapp.generated.resources.forgot_password
+import planmind.composeapp.generated.resources.login_progress
+import planmind.composeapp.generated.resources.login_title
+import planmind.composeapp.generated.resources.first_time
+import planmind.composeapp.generated.resources.register_link
 
 object LoginScreen : Screen {
     @Composable
@@ -148,8 +155,8 @@ private fun LoginContent(
 
             // Password field using modern InputField
             InputField(
-                label = "Пароль",
-                placeholder = "Введите пароль",
+                label = stringResource(Res.string.password_label),
+                placeholder = stringResource(Res.string.password_placeholder),
                 value = state.password,
                 onValueChange = component::updatePassword,
                 modifier = Modifier.fillMaxWidth(),
@@ -171,7 +178,7 @@ private fun LoginContent(
                     enabled = !state.inProgress
                 ) {
                     Text(
-                        text = "Напомнить пароль?",
+                        text = stringResource(Res.string.forgot_password),
                         fontSize = 14.sp,
                         color = LocalColorsPalette.current.primary
                     )
@@ -198,7 +205,9 @@ private fun LoginContent(
                 )
             ) {
                 Text(
-                    text = if (state.inProgress) "Входим..." else "Войти",
+                    text = if (state.inProgress) stringResource(Res.string.login_progress) else stringResource(
+                        Res.string.login_title
+                    ),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )
@@ -211,9 +220,9 @@ private fun LoginContent(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Впервые? ")
+                Text(text = stringResource(Res.string.first_time))
                 TextButton(onClick = goToRegister) {
-                    Text(text = "Зарегистрироваться")
+                    Text(text = stringResource(Res.string.register_link))
                 }
             }
         }

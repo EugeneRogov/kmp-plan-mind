@@ -3,4 +3,89 @@
     <string name="email_hint">Email</string>
     <string name="back">Назад</string>
     <string name="profile">Профиль</string>
+
+    <!-- Authentication -->
+    <string name="login_title">Войти</string>
+    <string name="login_progress">Входим...</string>
+    <string name="password_label">Пароль</string>
+    <string name="password_placeholder">Введите пароль</string>
+    <string name="forgot_password">Напомнить пароль?</string>
+    <string name="first_time">Впервые? </string>
+    <string name="register_link">Зарегистрироваться</string>
+
+    <!-- Registration -->
+    <string name="register_title">Зарегистрироваться</string>
+    <string name="register_progress">Создаём аккаунт...</string>
+    <string name="username_label">Имя пользователя</string>
+    <string name="username_placeholder">Введите имя пользователя</string>
+    <string name="confirm_password_label">Подтвердите пароль</string>
+    <string name="confirm_password_placeholder">Повторите пароль</string>
+    <string name="already_have_account">Уже есть аккаунт? Войти</string>
+
+    <!-- Password Recovery -->
+    <string name="recover_password_title">Восстановить пароль</string>
+    <string name="recover_password_progress">Отправляем...</string>
+    <string name="recover_password_description">Введите email для получения инструкций по восстановлению пароля</string>
+    <string name="remembered_password">Вспомнили пароль? </string>
+    <string name="login_link">Войти</string>
+
+    <!-- Profile -->
+    <string name="first_name_label">Имя</string>
+    <string name="first_name_placeholder">Введите ваше имя</string>
+    <string name="last_name_label">Фамилия</string>
+    <string name="last_name_placeholder">Введите вашу фамилию</string>
+    <string name="saving">Saving...</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="sign_in_to_account">Войдите в свой аккаунт</string>
+    <string name="login_to_access_profile">Для доступа к профилю необходимо авторизоваться</string>
+    <string name="login_to_account">Войти в аккаунт</string>
+    <string name="or">или</string>
+    <string name="sign_in_with_google">Войти через Google</string>
+    <string name="sign_in_with_vk">Войти через VK ID</string>
+
+    <!-- Navigation -->
+    <string name="home">Главная</string>
+    <string name="profile_nav">Профиль</string>
+    <string name="hello_world">Hello, World!</string>
+
+    <!-- Theme Preview -->
+    <string name="background_color">Background color</string>
+    <string name="primary_button">Primary Button</string>
+    <string name="secondary_text">Secondary text</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+
+    <!-- Error Messages -->
+    <string name="error_fill_all_fields">Please fill in all fields</string>
+    <string name="error_passwords_not_match">Passwords do not match</string>
+    <string name="error_password_min_length">Password must be at least 6 characters</string>
+    <string name="error_enter_email">Введите email для восстановления пароля</string>
+    <string name="error_enter_valid_email">Введите корректный email адрес</string>
+    <string name="error_fill_required_fields">Please fill in all required fields</string>
+    <string name="error_failed_to_load_profile">Failed to load profile</string>
+    <string name="success_password_recovery">Инструкции по восстановлению пароля отправлены на %s</string>
+    <string name="error_password_recovery">Ошибка восстановления пароля: %s</string>
+
+    <!-- Content Descriptions -->
+    <string name="logo_content_description">PlanMind Logo</string>
+
+    <!-- Demo and Preview -->
+    <string name="demo_button_text">Get verification code</string>
+    <string name="demo_password_label">Password</string>
+    <string name="demo_password_placeholder">Enter your password</string>
+    <string name="demo_email_hint">Email</string>
+
+    <!-- Typography previews -->
+    <string name="title_large_preview">TitleLarge</string>
+    <string name="title_medium_preview">TitleMedium</string>
+    <string name="title_small_preview">TitleSmall</string>
+    <string name="body_large_preview">BodyLarge</string>
+    <string name="body_medium_preview">BodyMedium</string>
+    <string name="body_small_preview">BodySmall</string>
+    <string name="label_large_preview">LabelLarge</string>
+    <string name="label_medium_preview">LabelMedium</string>
+    <string name="label_small_preview">LabelSmall</string>
+    <string name="headline_medium_preview">HeadlineMedium</string>
+    <string name="headline_small_preview">HeadlineSmall</string>
 </resources>

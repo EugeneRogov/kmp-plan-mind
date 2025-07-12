@@ -48,11 +48,13 @@ class RecoverPasswordViewModelImpl(
         val currentState = _state.value
 
         if (currentState.email.isBlank()) {
+            // TODO: Use string resource for error message
             _state.update { it.copy(errorMessage = "Введите email для восстановления пароля") }
             return
         }
 
         if (!currentState.email.contains("@") || !currentState.email.contains(".")) {
+            // TODO: Use string resource for error message
             _state.update { it.copy(errorMessage = "Введите корректный email адрес") }
             return
         }
@@ -68,6 +70,7 @@ class RecoverPasswordViewModelImpl(
                 _state.update {
                     it.copy(
                         inProgress = false,
+                        // TODO: Use string resource for success message
                         successMessage = "Инструкции по восстановлению пароля отправлены на ${currentState.email}"
                     )
                 }
@@ -80,6 +83,7 @@ class RecoverPasswordViewModelImpl(
                 _state.update {
                     it.copy(
                         inProgress = false,
+                        // TODO: Use string resource for error message
                         errorMessage = "Ошибка восстановления пароля: ${e.message}"
                     )
                 }

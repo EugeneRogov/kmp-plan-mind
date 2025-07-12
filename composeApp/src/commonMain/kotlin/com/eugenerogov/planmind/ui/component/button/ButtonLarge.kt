@@ -10,7 +10,10 @@ import androidx.compose.ui.graphics.Color
 import com.eugenerogov.planmind.ui.component.typography.LabelLarge
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.demo_button_text
 
 @Composable
 fun ButtonLarge(
@@ -53,7 +56,7 @@ fun ButtonLarge(
 fun ButtonLargePreview() {
     ButtonLarge(
         onClick = {},
-        text = "Get verification code"
+        text = stringResource(Res.string.demo_button_text)
 //        image = painterResource(R.drawable.button_onoff_indicator_on)
     )
 }

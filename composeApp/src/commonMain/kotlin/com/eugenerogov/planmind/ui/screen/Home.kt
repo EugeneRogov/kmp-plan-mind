@@ -13,7 +13,11 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.home
+import planmind.composeapp.generated.resources.profile_nav
 
 object HomeScreen : Screen {
     @Composable
@@ -58,7 +62,7 @@ fun HomeContent(
                     icon = {
                     Text("🏠")
                     },
-                    label = { Text("Главная") },
+                    label = { Text(stringResource(Res.string.home)) },
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 }
                 )
@@ -66,7 +70,7 @@ fun HomeContent(
                     icon = {
                     Text("👤")
                     },
-                    label = { Text("Профиль") },
+                    label = { Text(stringResource(Res.string.profile_nav)) },
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 }
                 )

@@ -20,7 +20,14 @@ import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import com.eugenerogov.planmind.ui.theme.PlanMindTheme
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.background_color
+import planmind.composeapp.generated.resources.primary_button
+import planmind.composeapp.generated.resources.secondary_text
+import planmind.composeapp.generated.resources.light_theme
+import planmind.composeapp.generated.resources.dark_theme
 
 @Composable
 fun ThemePreviewCard(
@@ -52,7 +59,7 @@ fun ThemePreviewCard(
             )
 
             Text(
-                text = "Background color",
+                text = stringResource(Res.string.background_color),
                 color = LocalColorsPalette.current.onBackground
             )
 
@@ -63,11 +70,11 @@ fun ThemePreviewCard(
                     contentColor = LocalColorsPalette.current.onPrimary
                 )
             ) {
-                Text("Primary Button")
+                Text(stringResource(Res.string.primary_button))
             }
 
             Text(
-                text = "Secondary text",
+                text = stringResource(Res.string.secondary_text),
                 color = LocalColorsPalette.current.secondary
             )
         }
@@ -87,7 +94,7 @@ fun ThemePreview() {
                     .background(LocalColorsPalette.current.background)
                     .padding(dim.small3X)
             ) {
-                ThemePreviewCard("Light Theme")
+                ThemePreviewCard(stringResource(Res.string.light_theme))
             }
         }
 
@@ -98,7 +105,7 @@ fun ThemePreview() {
                     .background(LocalColorsPalette.current.background)
                     .padding(dim.small3X)
             ) {
-                ThemePreviewCard("Dark Theme")
+                ThemePreviewCard(stringResource(Res.string.dark_theme))
             }
         }
     }

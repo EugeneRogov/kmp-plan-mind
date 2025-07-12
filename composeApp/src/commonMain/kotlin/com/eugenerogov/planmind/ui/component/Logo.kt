@@ -14,9 +14,12 @@ import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.ic_launcher
+import planmind.composeapp.generated.resources.logo_content_description
+import planmind.composeapp.generated.resources.app_name
 
 @Composable
 fun AppLogo(
@@ -32,7 +35,7 @@ fun AppLogo(
         // App icon
         Image(
             painter = painterResource(Res.drawable.ic_launcher),
-            contentDescription = "PlanMind Logo",
+            contentDescription = stringResource(Res.string.logo_content_description),
             modifier = Modifier
                 .size(dim.logoSize)
                 .padding(bottom = if (showText) dim.small3X else dim.default)
@@ -40,7 +43,7 @@ fun AppLogo(
 
         if (showText) {
             Text(
-                text = "PlanMind",
+                text = stringResource(Res.string.app_name),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = LocalColorsPalette.current.primary

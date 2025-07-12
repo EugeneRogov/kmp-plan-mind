@@ -44,6 +44,11 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import planmind.composeapp.generated.resources.Res
 import planmind.composeapp.generated.resources.email_hint
+import planmind.composeapp.generated.resources.recover_password_description
+import planmind.composeapp.generated.resources.recover_password_progress
+import planmind.composeapp.generated.resources.recover_password_title
+import planmind.composeapp.generated.resources.remembered_password
+import planmind.composeapp.generated.resources.login_link
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatformTools
 
@@ -131,7 +136,7 @@ private fun RecoverPasswordContent(
 
             // Description
             Text(
-                text = "Введите email для получения инструкций по восстановлению пароля",
+                text = stringResource(Res.string.recover_password_description),
                 fontSize = 16.sp,
                 color = LocalColorsPalette.current.onSurface.copy(alpha = 0.7f),
                 modifier = Modifier.fillMaxWidth(),
@@ -171,7 +176,9 @@ private fun RecoverPasswordContent(
                 )
             ) {
                 Text(
-                    text = if (state.inProgress) "Отправляем..." else "Восстановить пароль",
+                    text = if (state.inProgress) stringResource(Res.string.recover_password_progress) else stringResource(
+                        Res.string.recover_password_title
+                    ),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )
@@ -185,12 +192,12 @@ private fun RecoverPasswordContent(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Вспомнили пароль? ")
+                Text(text = stringResource(Res.string.remembered_password))
                 TextButton(
                     onClick = component::onClickBackToLogin,
                     enabled = !state.inProgress
                 ) {
-                    Text(text = "Войти")
+                    Text(text = stringResource(Res.string.login_link))
                 }
             }
 
