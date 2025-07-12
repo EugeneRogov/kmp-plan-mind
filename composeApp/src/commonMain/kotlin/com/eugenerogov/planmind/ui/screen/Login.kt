@@ -2,6 +2,7 @@ package com.eugenerogov.planmind.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,12 +13,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -46,14 +49,16 @@ object LoginScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         LoginScreenContent(
-            goToMain = { navigator.push(LoginScreen) }
+            goToMain = { navigator.push(LoginScreen) },
+            goToRegister = { navigator.push(RegisterScreen) }
         )
     }
 }
 
 @Composable
 fun LoginScreenContent(
-    goToMain: () -> Unit
+    goToMain: () -> Unit,
+    goToRegister: () -> Unit
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -86,14 +91,16 @@ fun LoginScreenContent(
 
     LoginContent(
         state = state,
-        component = loginComponent
+        component = loginComponent,
+        goToRegister = goToRegister
     )
 }
 
 @Composable
 private fun LoginContent(
     state: LoginUiState,
-    component: LoginViewModel
+    component: LoginViewModel,
+    goToRegister: () -> Unit
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -143,6 +150,19 @@ private fun LoginContent(
                 text = if (state.inProgress) "Logging in..." else "Login",
                 enabled = !state.inProgress
             )
+
+            // "Впервые? Зарегистрироваться" below login button
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Впервые? ")
+                TextButton(onClick = goToRegister) {
+                    Text(text = "Зарегистрироваться")
+                }
+            }
         }
     }
 }
@@ -162,6 +182,7 @@ fun LoginPreview() {
             override fun onClickLogin() {}
             override fun onClickForgotPassword() {}
             override fun onClickNetworkSettings() {}
-        }
+        },
+        goToRegister = {}
     )
 }
