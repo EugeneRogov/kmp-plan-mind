@@ -8,10 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import com.eugenerogov.planmind.ui.component.input.InputField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -30,23 +29,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.eugenerogov.planmind.viewmodel.LoginViewModel
-import com.eugenerogov.planmind.viewmodel.LoginUiState
 import com.eugenerogov.planmind.ui.component.input.InputEmail
+import com.eugenerogov.planmind.ui.component.input.InputField
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
+import com.eugenerogov.planmind.viewmodel.LoginUiState
+import com.eugenerogov.planmind.viewmodel.LoginViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import planmind.composeapp.generated.resources.Res
-import planmind.composeapp.generated.resources.email_hint
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatformTools
+import planmind.composeapp.generated.resources.Res
+import planmind.composeapp.generated.resources.email_hint
 
 object LoginScreen : Screen {
     @Composable
@@ -142,7 +141,7 @@ private fun LoginContent(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
                 enabled = state.isPasswordEnabled && !state.inProgress,
-                visualTransformation = PasswordVisualTransformation()
+                isPassword = true
             )
 
             Spacer(modifier = Modifier.height(8.dp))

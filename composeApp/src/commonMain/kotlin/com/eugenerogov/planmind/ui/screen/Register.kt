@@ -150,7 +150,7 @@ private fun RegisterContent(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Next,
                 enabled = state.isPasswordEnabled && !state.inProgress,
-                visualTransformation = PasswordVisualTransformation()
+                isPassword = true
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -165,7 +165,7 @@ private fun RegisterContent(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
                 enabled = state.isConfirmPasswordEnabled && !state.inProgress,
-                visualTransformation = PasswordVisualTransformation()
+                isPassword = true
             )
 
             Spacer(modifier = Modifier.height(16.dp))

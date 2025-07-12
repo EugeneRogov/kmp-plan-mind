@@ -4,10 +4,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -15,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,8 +41,17 @@ fun InputField(
     enabled: Boolean = true,
     singleLine: Boolean = true,
     focusRequester: FocusRequester = FocusRequester(),
-    textColor: Color = LocalColorsPalette.current.onSurface
+    textColor: Color = LocalColorsPalette.current.onSurface,
+    isPassword: Boolean = false
 ) {
+    var isPasswordVisible by remember { mutableStateOf(false) }
+
+    val actualVisualTransformation = if (isPassword && !isPasswordVisible) {
+        PasswordVisualTransformation()
+    } else {
+        visualTransformation
+    }
+
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
@@ -59,11 +75,21 @@ fun InputField(
                 color = LocalColorsPalette.current.onSurfaceVariant.copy(alpha = 0.7f)
             )
         },
+        trailingIcon = if (isPassword) {
+            {
+                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                    Text(
+                        text = if (isPasswordVisible) "🙈" else "👁️",
+                        fontSize = 16.sp
+                    )
+                }
+            }
+        } else null,
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
             imeAction = imeAction
         ),
-        visualTransformation = visualTransformation,
+        visualTransformation = actualVisualTransformation,
         singleLine = singleLine,
         enabled = enabled,
         shape = RoundedCornerShape(12.dp),
@@ -91,7 +117,8 @@ fun InputFieldPreview() {
     InputField(
         value = "",
         onValueChange = {},
-        label = "Username",
-        placeholder = "Enter your username"
+        label = "Password",
+        placeholder = "Enter your password",
+        isPassword = true
     )
 }
