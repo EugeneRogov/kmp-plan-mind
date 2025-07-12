@@ -16,7 +16,7 @@ import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import planmind.composeapp.generated.resources.Res
-import planmind.composeapp.generated.resources.compose_multiplatform
+import planmind.composeapp.generated.resources.ic_launcher
 
 @Composable
 fun AppLogo(
@@ -29,7 +29,7 @@ fun AppLogo(
     ) {
         // App icon
         Image(
-            painter = painterResource(Res.drawable.compose_multiplatform),
+            painter = painterResource(Res.drawable.ic_launcher),
             contentDescription = "PlanMind Logo",
             modifier = Modifier
                 .size(80.dp)
