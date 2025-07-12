@@ -30,234 +30,62 @@ data class CustomColorsPalette(
     val greenContainer: Color = Color.Unspecified,
     val onGreenContainer: Color = Color.Unspecified,
     val error: Color = Color.Unspecified,
-
-    val grayTag: Color = Color.Unspecified,
-    val blueTag: Color = Color.Unspecified,
-    val redTag: Color = Color.Unspecified,
-    val greenTag: Color = Color.Unspecified,
-    val yellowTag: Color = Color.Unspecified,
-    val orangeTag: Color = Color.Unspecified,
-    val limeTag: Color = Color.Unspecified,
-    val tealTag: Color = Color.Unspecified,
-    val aquaTag: Color = Color.Unspecified,
-    val ultramarineTag: Color = Color.Unspecified,
-    val purpleTag: Color = Color.Unspecified,
-    val pinkTag: Color = Color.Unspecified,
-
-    val grayTagText: Color = Color.Unspecified,
-    val blueTagText: Color = Color.Unspecified,
-    val redTagText: Color = Color.Unspecified,
-    val greenTagText: Color = Color.Unspecified,
-    val yellowTagText: Color = Color.Unspecified,
-    val orangeTagText: Color = Color.Unspecified,
-    val limeTagText: Color = Color.Unspecified,
-    val tealTagText: Color = Color.Unspecified,
-    val aquaTagText: Color = Color.Unspecified,
-    val ultramarineTagText: Color = Color.Unspecified,
-    val purpleTagText: Color = Color.Unspecified,
-    val pinkTagText: Color = Color.Unspecified,
-
-    val grayTag1: Color = Color.Unspecified,
-    val blueTag1: Color = Color.Unspecified,
-    val redTag1: Color = Color.Unspecified,
-    val greenTag1: Color = Color.Unspecified,
-    val yellowTag1: Color = Color.Unspecified,
-    val orangeTag1: Color = Color.Unspecified,
-    val limeTag1: Color = Color.Unspecified,
-    val tealTag1: Color = Color.Unspecified,
-    val aquaTag1: Color = Color.Unspecified,
-    val ultramarineTag1: Color = Color.Unspecified,
-    val purpleTag1: Color = Color.Unspecified,
-    val pinkTag1: Color = Color.Unspecified,
-
-    val grayTagText1: Color = Color.Unspecified,
-    val blueTagText1: Color = Color.Unspecified,
-    val redTagText1: Color = Color.Unspecified,
-    val greenTagText1: Color = Color.Unspecified,
-    val yellowTagText1: Color = Color.Unspecified,
-    val orangeTagText1: Color = Color.Unspecified,
-    val limeTagText1: Color = Color.Unspecified,
-    val tealTagText1: Color = Color.Unspecified,
-    val aquaTagText1: Color = Color.Unspecified,
-
-    val ultramarineTagText1: Color = Color.Unspecified,
-    val purpleTagText1: Color = Color.Unspecified,
-    val pinkTagText1: Color = Color.Unspecified,
-    val fileDoc: Color = Color.Unspecified,
-    val fileXls: Color = Color.Unspecified,
-    val filePdf: Color = Color.Unspecified,
-    val fileZip: Color = Color.Unspecified,
-
-    val shimmerLight: Color = Color.Unspecified,
-    val shimmerDark: Color = Color.Unspecified
 )
 
 val LocalColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
 
 val OnLightCustomColorsPalette =
     CustomColorsPalette(
-        surface = Color(color = 0xFFFFFFFF),
-        surfaceVariant = Color(color = 0xFFE5E7EB),
-        primary = Color(color = 0xFF1F8EFF),
-        primaryVariant = Color(color = 0xFF0F6DD9),
-        onPrimary = Color(color = 0xFFFFFFFF),
-        secondary = Color(color = 0xFF808A9D),
-        secondaryVariant = Color(color = 0xFF505868),
-        background = Color(color = 0xFFFAFAFA),
-        onBackground = Color(color = 0xFF000000),
-        outline = Color(color = 0xFFD8DBE1),
-        outlineVariant = Color(color = 0xFFF3F4F6),
-        onSurface = Color(color = 0xFF141414),
-        onSurfaceVariant = Color(color = 0xFF667085),
-        secondaryContainer = Color(color = 0xFFF3F4F6),
-        onSecondaryContainer = Color(color = 0xFF667085),
-        primaryContainer = Color(color = 0xFFEBF8FF),
-        onPrimaryContainer = Color(color = 0xFF0F6DD9),
-        orange = Color(color = 0xFFFA8C16),
-        orangeContainer = Color(color = 0xFFFFF7E6),
-        onOrangeContainer = Color(color = 0xFFD46B08),
-        green = Color(color = 0xFF00B853),
-        greenContainer = Color(color = 0xFFDFF7E6),
-        onGreenContainer = Color(color = 0xFF009146),
-        error = Color(color = 0xFFF5222D),
-
-        grayTag = Color(color = 0xFFDCE3E8),
-        blueTag = Color(color = 0xFFD4E4F9),
-        redTag = Color(color = 0xFFF9DCD9),
-        greenTag = Color(color = 0xFFC8EBD2),
-        yellowTag = Color(color = 0xFFFFECA7),
-        orangeTag = Color(color = 0xFFFBDDC8),
-        limeTag = Color(color = 0xFFD6F0B3),
-        tealTag = Color(color = 0xFFC8EDEB),
-        aquaTag = Color(color = 0xFFB9E7FC),
-        ultramarineTag = Color(color = 0xFFDEE0F9),
-        purpleTag = Color(color = 0xFFEADCFB),
-        pinkTag = Color(color = 0xFF8E4BDB),
-
-        grayTagText = Color(color = 0xFF5C7281),
-        blueTagText = Color(color = 0xFF1E6CDB),
-        redTagText = Color(color = 0xFFD7161C),
-        greenTagText = Color(color = 0xFF147D56),
-        yellowTagText = Color(color = 0xFFE66230),
-        orangeTagText = Color(color = 0xFFE66230),
-        limeTagText = Color(color = 0xFF3F7D19),
-        tealTagText = Color(color = 0xFF147B90),
-        aquaTagText = Color(color = 0xFF0F74B8),
-        ultramarineTagText = Color(color = 0xFF5461E5),
-        purpleTagText = Color(color = 0xFF8E4BDB),
-        pinkTagText = Color(color = 0xFFCA1990),
-
-        grayTag1 = Color(color = 0xFF5C7281),
-        blueTag1 = Color(color = 0xFF1E6CDB),
-        redTag1 = Color(color = 0xFFD7161C),
-        greenTag1 = Color(color = 0xFF147D56),
-        yellowTag1 = Color(color = 0xFFFFCF3F),
-        orangeTag1 = Color(color = 0xFFE66230),
-        limeTag1 = Color(color = 0xFF3F7D19),
-        tealTag1 = Color(color = 0xFF147B90),
-        aquaTag1 = Color(color = 0xFF0F74B8),
-        ultramarineTag1 = Color(color = 0xFF5461E5),
-        purpleTag1 = Color(color = 0xFF8E4BDB),
-        pinkTag1 = Color(color = 0xFFCA1990),
-
-        grayTagText1 = Color(color = 0xFFFFFFFF),
-        blueTagText1 = Color(color = 0xFFFFFFFF),
-        redTagText1 = Color(color = 0xFFFFFFFF),
-        greenTagText1 = Color(color = 0xFFFFFFFF),
-        yellowTagText1 = Color(color = 0xFF30302F),
-        orangeTagText1 = Color(color = 0xFFFFFFFF),
-        limeTagText1 = Color(color = 0xFFFFFFFF),
-        tealTagText1 = Color(color = 0xFFFFFFFF),
-        aquaTagText1 = Color(color = 0xFFFFFFFF),
-        ultramarineTagText1 = Color(color = 0xFFFFFFFF),
-        purpleTagText1 = Color(color = 0xFFFFFFFF),
-        pinkTagText1 = Color(color = 0xFFFFFFFF),
-
-        fileDoc = Color(color = 0xFF2443CB),
-        fileXls = Color(color = 0xFF147D56),
-        filePdf = Color(color = 0xFFD7161C),
-        fileZip = Color(color = 0xFFFFCF3F),
-
-        shimmerLight = Color(color = 0xFFEBEBEB),
-        shimmerDark = Color(color = 0xFFC7C7C7)
+        surface = Color(0xFFE4D6E5), // snuff – светлый фон
+        surfaceVariant = Color(0xFFC7A1C9), // london-hue – вариант surface
+        primary = Color(0xFF438AC5), // boston-blue – основной акцент
+        primaryVariant = Color(0xFF1CACDC), // curious-blue – второй акцент
+        onPrimary = Color(0xFFFFFFFF), // белый текст на кнопках
+        secondary = Color(0xFFC24882), // mulberry – выделение/доп. элементы
+        secondaryVariant = Color(0xFFBB88B5), // bouquet
+        background = Color(0xFFE4D6E5), // snuff – unify фон и surface
+        onBackground = Color(0xFF22202A), // тёмный для контраста
+        outline = Color(0xFF944E97), // affair – обводки
+        outlineVariant = Color(0xFF7565A9), // deluge – вариант обводки
+        onSurface = Color(0xFF22202A), // основной текст
+        onSurfaceVariant = Color(0xFFC24882), // mulberry – вариант текста
+        secondaryContainer = Color(0xFFC7A1C9),
+        onSecondaryContainer = Color(0xFF438AC5),
+        primaryContainer = Color(0xFF438AC5),
+        onPrimaryContainer = Color(0xFFE4D6E5),
+        orange = Color(0xFFE75D74), // mandy – уведомления/варнинг/успех
+        orangeContainer = Color(0xFFFDEDF2), // snuff, высветлим
+        onOrangeContainer = Color(0xFFC24882),
+        green = Color(0xFFC270A6), // hopbush – успех/special
+        greenContainer = Color(0xFFF4E0EF),
+        onGreenContainer = Color(0xFF944E97),
+        error = Color(0xFFE75D74), // mandy
     )
 
 val OnDarkCustomColorsPalette =
     CustomColorsPalette(
-        surface = Color(color = 0xFF212427),
-        surfaceVariant = Color(color = 0xFF43474E),
-        primary = Color(color = 0xFFA6C8FF),
-        primaryVariant = Color(color = 0xFFD7E8FF),
-        onPrimary = Color(color = 0xFF18202D),
-        secondary = Color(color = 0xFFBDC7DC),
-        secondaryVariant = Color(color = 0xFFD8DBE1),
-        background = Color(color = 0xFF1A1C1E),
-        onBackground = Color(color = 0xFFE3E2E6),
-        outline = Color(color = 0xFF505868),
-        outlineVariant = Color(color = 0xFF23272E),
-        onSurface = Color(color = 0xFFC7C6CA),
-        onSurfaceVariant = Color(color = 0xFFC4C6CF),
-        secondaryContainer = Color(color = 0xFF282B30),
-        onSecondaryContainer = Color(color = 0xFFBABFCA),
-        primaryContainer = Color(color = 0xFF1C2D47),
-        onPrimaryContainer = Color(color = 0xFFD7E8FF),
-        orange = Color(color = 0xFFF8CF8E),
-        orangeContainer = Color(color = 0xFF7F4E1A),
-        onOrangeContainer = Color(color = 0xFFFAE3B7),
-        green = Color(color = 0xFF68D88F),
-        greenContainer = Color(color = 0xFF0E6236),
-        onGreenContainer = Color(color = 0xFF009146),
-        error = Color(color = 0xFFF89F9A),
-
-        grayTag = Color(color = 0xFFDCE3E8),
-        blueTag = Color(color = 0xFFD4E4F9),
-        redTag = Color(color = 0xFFF9DCD9),
-        greenTag = Color(color = 0xFFC8EBD2),
-        yellowTag = Color(color = 0xFFFFECA7),
-        orangeTag = Color(color = 0xFFFBDDC8),
-        limeTag = Color(color = 0xFFD6F0B3),
-        tealTag = Color(color = 0xFFC8EDEB),
-        aquaTag = Color(color = 0xFFB9E7FC),
-        ultramarineTag = Color(color = 0xFFDEE0F9),
-        purpleTag = Color(color = 0xFFEADCFB),
-        pinkTag = Color(color = 0xFF8E4BDB),
-
-        grayTagText = Color(color = 0xFF5C7281),
-        blueTagText = Color(color = 0xFF1E6CDB),
-        redTagText = Color(color = 0xFFD7161C),
-        greenTagText = Color(color = 0xFF147D56),
-        yellowTagText = Color(color = 0xFFE66230),
-        orangeTagText = Color(color = 0xFFE66230),
-        limeTagText = Color(color = 0xFF3F7D19),
-        tealTagText = Color(color = 0xFF147B90),
-        aquaTagText = Color(color = 0xFF0F74B8),
-        ultramarineTagText = Color(color = 0xFF5461E5),
-        purpleTagText = Color(color = 0xFF8E4BDB),
-        pinkTagText = Color(color = 0xFFCA1990),
-
-        grayTag1 = Color(color = 0xFF5C7281),
-        blueTag1 = Color(color = 0xFF1E6CDB),
-        redTag1 = Color(color = 0xFFD7161C),
-        greenTag1 = Color(color = 0xFF147D56),
-        yellowTag1 = Color(color = 0xFFFFCF3F),
-        orangeTag1 = Color(color = 0xFFE66230),
-        limeTag1 = Color(color = 0xFF3F7D19),
-        tealTag1 = Color(color = 0xFF147B90),
-        aquaTag1 = Color(color = 0xFF0F74B8),
-        ultramarineTag1 = Color(color = 0xFF5461E5),
-        purpleTag1 = Color(color = 0xFF8E4BDB),
-        pinkTag1 = Color(color = 0xFFCA1990),
-
-        grayTagText1 = Color(color = 0xFFFFFFFF),
-        blueTagText1 = Color(color = 0xFFFFFFFF),
-        redTagText1 = Color(color = 0xFFFFFFFF),
-        greenTagText1 = Color(color = 0xFFFFFFFF),
-        yellowTagText1 = Color(color = 0xFF30302F),
-        orangeTagText1 = Color(color = 0xFFFFFFFF),
-        limeTagText1 = Color(color = 0xFFFFFFFF),
-        tealTagText1 = Color(color = 0xFFFFFFFF),
-        aquaTagText1 = Color(color = 0xFFFFFFFF),
-        ultramarineTagText1 = Color(color = 0xFFFFFFFF),
-        purpleTagText1 = Color(color = 0xFFFFFFFF),
-        pinkTagText1 = Color(color = 0xFFFFFFFF)
+        surface = Color(0xFF22202A), // глубокий тёмный
+        surfaceVariant = Color(0xFF7565A9), // deluge
+        primary = Color(0xFF438AC5), // boston-blue (оставить акцентным)
+        primaryVariant = Color(0xFF1CACDC), // curious-blue
+        onPrimary = Color(0xFFE4D6E5), // светлый text
+        secondary = Color(0xFFC24882), // mulberry
+        secondaryVariant = Color(0xFF944E97), // affair
+        background = Color(0xFF18171D), // самый тёмный для отличия
+        onBackground = Color(0xFFE4D6E5), // светлый текст
+        outline = Color(0xFF944E97), // affair
+        outlineVariant = Color(0xFFC7A1C9), // london-hue/цвет мягче
+        onSurface = Color(0xFFEEECEE), // почти белый
+        onSurfaceVariant = Color(0xFFE75D74), // mandy
+        secondaryContainer = Color(0xFF7565A9), // deluge
+        onSecondaryContainer = Color(0xFFE4D6E5),
+        primaryContainer = Color(0xFF1CACDC),
+        onPrimaryContainer = Color(0xFFE4D6E5),
+        orange = Color(0xFFE75D74), // mandy
+        orangeContainer = Color(0xFFC24882), // mulberry
+        onOrangeContainer = Color(0xFFE4D6E5),
+        green = Color(0xFFBB88B5), // bouquet
+        greenContainer = Color(0xFF7565A9), // чуть темнее
+        onGreenContainer = Color(0xFFE4D6E5),
+        error = Color(0xFFE75D74), // mandy
     )
