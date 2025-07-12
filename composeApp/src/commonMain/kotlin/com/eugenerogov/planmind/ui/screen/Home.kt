@@ -1,28 +1,19 @@
 package com.eugenerogov.planmind.ui.screen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.eugenerogov.planmind.Greeting
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import planmind.composeapp.generated.resources.Res
-import planmind.composeapp.generated.resources.compose_multiplatform
 
 object HomeScreen : Screen {
     @Composable
@@ -36,44 +27,63 @@ object HomeScreen : Screen {
 }
 
 @Composable
-@Preview
 fun HomeContent(
     onNavigateToLogin: () -> Unit = {},
     onNavigateToProfile: () -> Unit = {}
 ) {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
+    var selectedTab by remember { mutableStateOf(0) }
 
-        Scaffold(
-            containerColor = LocalColorsPalette.current.background
-        ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .safeContentPadding()
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+    Scaffold(
+        containerColor = LocalColorsPalette.current.background,
+        bottomBar = {
+            NavigationBar(
+                containerColor = LocalColorsPalette.current.surface
             ) {
-
-
-                Button(onClick = onNavigateToLogin) {
-                    Text("Go to Login")
-                }
-
-                Button(onClick = onNavigateToProfile) {
-                    Text("Go to Profile")
-                }
-
-                AnimatedVisibility(showContent) {
-                    val greeting = remember { Greeting().greet() }
-                    Column(
-                        Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Image(painterResource(Res.drawable.compose_multiplatform), null)
-                        Text("Compose: $greeting")
-                    }
-                }
+                NavigationBarItem(
+                    icon = {
+                    Text("🏠")
+                    },
+                    label = { Text("Главная") },
+                    selected = selectedTab == 0,
+                    onClick = { selectedTab = 0 }
+                )
+                NavigationBarItem(
+                    icon = {
+                    Text("👤")
+                    },
+                    label = { Text("Профиль") },
+                    selected = selectedTab == 1,
+                    onClick = { selectedTab = 1 }
+                )
             }
         }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            when (selectedTab) {
+                0 -> DefaultScreenTab(
+                    onNavigateToLogin = onNavigateToLogin,
+                    onNavigateToProfile = onNavigateToProfile
+                )
+                1 -> ProfileScreenContent(
+                    onNavigateBack = { /* Handle back navigation if needed */ }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DefaultScreenTab(
+    onNavigateToLogin: () -> Unit = {},
+    onNavigateToProfile: () -> Unit = {}
+) {
+    DefaultScreen()
+}
+
+@Preview
+@Composable
+fun HomePreview() {
+    MaterialTheme {
+        HomeContent()
     }
 }
