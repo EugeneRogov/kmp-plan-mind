@@ -14,31 +14,31 @@ import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-object DefaultScreenObject : Screen {
+object MainScreen : Screen {
     @Composable
     override fun Content() {
-        DefaultScreen()
+        MainScreen()
     }
 }
 
 @Composable
-fun DefaultScreen() {
-    DefaultContent()
+fun MainScreen() {
+    MainContent()
 }
 
 @Composable
-private fun DefaultContent() {
+private fun MainContent() {
     Scaffold(
         containerColor = LocalColorsPalette.current.background
     ) { innerPadding ->
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(
-                    horizontal = LocalDim.current.small
-                ),
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(
+                        horizontal = LocalDim.current.small
+                    ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -49,6 +49,6 @@ private fun DefaultContent() {
 
 @Preview()
 @Composable
-fun DefaultPreview() {
-    DefaultContent()
+fun MainPreview() {
+    MainContent()
 }

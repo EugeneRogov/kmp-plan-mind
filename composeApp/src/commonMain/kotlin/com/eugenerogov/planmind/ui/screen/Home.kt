@@ -60,7 +60,7 @@ fun HomeContent(
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             when (selectedTab) {
-                0 -> DefaultScreenTab(
+                0 -> MainScreenTab(
                     onNavigateToLogin = onNavigateToLogin,
                     onNavigateToProfile = onNavigateToProfile
                 )
@@ -73,11 +73,11 @@ fun HomeContent(
 }
 
 @Composable
-private fun DefaultScreenTab(
+private fun MainScreenTab(
     onNavigateToLogin: () -> Unit = {},
     onNavigateToProfile: () -> Unit = {}
 ) {
-    DefaultScreen()
+    MainScreen()
 }
 
 @Preview
