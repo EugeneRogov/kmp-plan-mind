@@ -8,10 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import com.eugenerogov.planmind.ui.component.input.InputField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -24,20 +23,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.eugenerogov.planmind.viewmodel.LoginViewModel
-import com.eugenerogov.planmind.viewmodel.LoginUiState
+import com.eugenerogov.planmind.viewmodel.RecoverPasswordViewModel
+import com.eugenerogov.planmind.viewmodel.RecoverPasswordUiState
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
@@ -48,43 +47,40 @@ import planmind.composeapp.generated.resources.email_hint
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatformTools
 
-object LoginScreen : Screen {
+object RecoverPasswordScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        LoginScreenContent(
-            goToMain = { navigator.push(LoginScreen) },
-            goToRegister = { navigator.push(RegisterScreen) },
-            goToRecoverPassword = { navigator.push(RecoverPasswordScreen) }
+        RecoverPasswordScreenContent(
+            onRecoverSuccess = { navigator.pop() },
+            onBackToLogin = { navigator.pop() }
         )
     }
 }
 
 @Composable
-fun LoginScreenContent(
-    goToMain: () -> Unit,
-    goToRegister: () -> Unit,
-    goToRecoverPassword: () -> Unit
+fun RecoverPasswordScreenContent(
+    onRecoverSuccess: () -> Unit,
+    onBackToLogin: () -> Unit
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
-    val loginComponent = remember {
-        KoinPlatformTools.defaultContext().get().get<LoginViewModel>(
+    val recoverPasswordComponent = remember {
+        KoinPlatformTools.defaultContext().get().get<RecoverPasswordViewModel>(
             parameters = {
                 parametersOf(
                     DefaultComponentContext(lifecycle = LifecycleRegistry()),
-                    goToMain,
-                    goToRecoverPassword,
-                    { /* Navigate to network settings */ }
+                    onRecoverSuccess,
+                    onBackToLogin
                 )
             }
         )
     }
 
-    var state by remember { mutableStateOf(LoginUiState()) }
+    var state by remember { mutableStateOf(RecoverPasswordUiState()) }
 
-    LaunchedEffect(loginComponent) {
-        loginComponent.state.subscribe { newState ->
+    LaunchedEffect(recoverPasswordComponent) {
+        recoverPasswordComponent.state.subscribe { newState ->
             state = newState
         }
     }
@@ -95,20 +91,22 @@ fun LoginScreenContent(
         }
     }
 
-    LoginContent(
+    LaunchedEffect(key1 = state.successMessage) {
+        if (state.successMessage.isNotEmpty()) {
+            snackBarHostState.showSnackbar(state.successMessage)
+        }
+    }
+
+    RecoverPasswordContent(
         state = state,
-        component = loginComponent,
-        goToRegister = goToRegister,
-        goToRecoverPassword = goToRecoverPassword
+        component = recoverPasswordComponent
     )
 }
 
 @Composable
-private fun LoginContent(
-    state: LoginUiState,
-    component: LoginViewModel,
-    goToRegister: () -> Unit,
-    goToRecoverPassword: () -> Unit
+private fun RecoverPasswordContent(
+    state: RecoverPasswordUiState,
+    component: RecoverPasswordViewModel
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
@@ -120,55 +118,45 @@ private fun LoginContent(
                 .padding(LocalDim.current.smallX),
             verticalArrangement = Arrangement.Center
         ) {
-            InputEmail(
-                hint = stringResource(Res.string.email_hint),
+            // Title
+            Text(
+                text = "Восстановление пароля",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                color = LocalColorsPalette.current.onSurface,
                 modifier = Modifier.fillMaxWidth(),
-                text = state.login,
-                onValueChange = component::updateLogin,
-                inputType = KeyboardType.Email,
-                imeAction = ImeAction.Next,
-                enabled = state.isLoginEnabled && !state.inProgress
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Password field using modern InputField
-            InputField(
-                label = "Пароль",
-                placeholder = "Введите пароль",
-                value = state.password,
-                onValueChange = component::updatePassword,
-                modifier = Modifier.fillMaxWidth(),
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done,
-                enabled = state.isPasswordEnabled && !state.inProgress,
-                visualTransformation = PasswordVisualTransformation()
+                textAlign = TextAlign.Center
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // "Напомнить пароль?" clickable text
-            Row(
+            // Description
+            Text(
+                text = "Введите email для получения инструкций по восстановлению пароля",
+                fontSize = 16.sp,
+                color = LocalColorsPalette.current.onSurface.copy(alpha = 0.7f),
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                TextButton(
-                    onClick = goToRecoverPassword,
-                    enabled = !state.inProgress
-                ) {
-                    Text(
-                        text = "Напомнить пароль?",
-                        fontSize = 14.sp,
-                        color = LocalColorsPalette.current.primary
-                    )
-                }
-            }
+                textAlign = TextAlign.Center
+            )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-            // Login button (updated to match "Войти в аккаунт" modern style)
+            // Email field
+            InputEmail(
+                hint = stringResource(Res.string.email_hint),
+                modifier = Modifier.fillMaxWidth(),
+                text = state.email,
+                onValueChange = component::updateEmail,
+                inputType = KeyboardType.Email,
+                imeAction = ImeAction.Done,
+                enabled = state.isEmailEnabled && !state.inProgress
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Recover button
             Button(
-                onClick = component::onClickLogin,
+                onClick = component::onClickRecover,
                 enabled = !state.inProgress,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -184,23 +172,39 @@ private fun LoginContent(
                 )
             ) {
                 Text(
-                    text = if (state.inProgress) "Входим..." else "Войти",
+                    text = if (state.inProgress) "Отправляем..." else "Восстановить пароль",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )
             }
 
-            // "Впервые? Зарегистрироваться" below login button
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Back to login button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Впервые? ")
-                TextButton(onClick = goToRegister) {
-                    Text(text = "Зарегистрироваться")
+                Text(text = "Вспомнили пароль? ")
+                TextButton(
+                    onClick = component::onClickBackToLogin,
+                    enabled = !state.inProgress
+                ) {
+                    Text(text = "Войти")
                 }
+            }
+
+            // Success message
+            if (state.successMessage.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = state.successMessage,
+                    fontSize = 14.sp,
+                    color = Color(0xFF4CAF50), // Green color for success
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }
@@ -208,21 +212,17 @@ private fun LoginContent(
 
 @Preview()
 @Composable
-fun LoginPreview() {
-    LoginContent(
-        state = LoginUiState.preview(),
-        component = object : LoginViewModel {
-            override val state = com.arkivanov.decompose.value.MutableValue(LoginUiState.preview())
+fun RecoverPasswordPreview() {
+    RecoverPasswordContent(
+        state = RecoverPasswordUiState.preview(),
+        component = object : RecoverPasswordViewModel {
+            override val state =
+                com.arkivanov.decompose.value.MutableValue(RecoverPasswordUiState.preview())
 
-            override fun updateLogin(login: String) {}
-            override fun updatePassword(password: String) {}
-            override fun updateLoginIn(isLoginIn: Boolean) {}
+            override fun updateEmail(email: String) {}
             override fun updateDebugMenuExpanded(expanded: Boolean) {}
-            override fun onClickLogin() {}
-            override fun onClickForgotPassword() {}
-            override fun onClickNetworkSettings() {}
-        },
-        goToRegister = {},
-        goToRecoverPassword = {}
+            override fun onClickRecover() {}
+            override fun onClickBackToLogin() {}
+        }
     )
 }

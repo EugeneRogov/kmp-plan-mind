@@ -5,6 +5,8 @@ import com.eugenerogov.planmind.viewmodel.LoginViewModel
 import com.eugenerogov.planmind.viewmodel.LoginViewModelImpl
 import com.eugenerogov.planmind.viewmodel.ProfileViewModel
 import com.eugenerogov.planmind.viewmodel.ProfileViewModelImpl
+import com.eugenerogov.planmind.viewmodel.RecoverPasswordViewModel
+import com.eugenerogov.planmind.viewmodel.RecoverPasswordViewModelImpl
 import com.eugenerogov.planmind.viewmodel.RegisterViewModel
 import com.eugenerogov.planmind.viewmodel.RegisterViewModelImpl
 import org.koin.dsl.module
@@ -79,6 +81,26 @@ val viewModelModule = module {
         RegisterViewModelImpl(
             componentContext = componentContext,
             onRegisterSuccess = onRegisterSuccess,
+            onNavigateToLogin = onNavigateToLogin
+        )
+    }
+
+    // Provide RecoverPasswordViewModel with constructor parameters coming from parametersOf()
+    factory<RecoverPasswordViewModel> { params ->
+        // 1-й параметр — ComponentContext (обязателен)
+        val componentContext = params[0] as ComponentContext
+        // 2-й параметр — коллбэк успешного восстановления пароля (опционален)
+        val onRecoverSuccess: () -> Unit = if (params.size() > 1) params[1] as () -> Unit else {
+            {}
+        }
+        // 3-й параметр — коллбэк для навигации к логину (опционален)
+        val onNavigateToLogin: () -> Unit = if (params.size() > 2) params[2] as () -> Unit else {
+            {}
+        }
+
+        RecoverPasswordViewModelImpl(
+            componentContext = componentContext,
+            onRecoverSuccess = onRecoverSuccess,
             onNavigateToLogin = onNavigateToLogin
         )
     }
