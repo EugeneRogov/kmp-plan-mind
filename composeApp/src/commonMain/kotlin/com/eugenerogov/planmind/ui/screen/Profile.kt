@@ -316,25 +316,72 @@ private fun UnauthenticatedProfileContent(
 
             Spacer(modifier = Modifier.height(LocalDim.current.medium))
 
+            // Основная кнопка авторизации в современном стиле
             Button(
                 onClick = onGoToAuth,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = LocalColorsPalette.current.primary,
+                    contentColor = LocalColorsPalette.current.onPrimary
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 2.dp,
+                    pressedElevation = 8.dp
+                )
             ) {
-                Text("Go to auth")
+                Text(
+                    text = "Войти в аккаунт",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp
+                )
             }
 
-            Spacer(modifier = Modifier.height(LocalDim.current.small))
+            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+
+            // Разделитель "или" 
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(1.dp)
+                        .background(LocalColorsPalette.current.onSurface.copy(alpha = 0.2f))
+                )
+                Text(
+                    text = "или",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    color = LocalColorsPalette.current.onSurface.copy(alpha = 0.6f),
+                    fontSize = 14.sp
+                )
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(1.dp)
+                        .background(LocalColorsPalette.current.onSurface.copy(alpha = 0.2f))
+                )
+            }
+
+            Spacer(modifier = Modifier.height(LocalDim.current.medium))
 
             OutlinedButton(
                 onClick = onGoogleSignIn,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(1.dp, Color(0xFFDADCE0)),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.5.dp, Color(0xFFE0E0E0)),
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = Color.White,
                     contentColor = Color(0xFF3C4043)
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 1.dp,
+                    pressedElevation = 4.dp
                 )
             ) {
                 Row(
@@ -342,20 +389,19 @@ private fun UnauthenticatedProfileContent(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    // Google "G" logo using colored circles to simulate the Google logo
+                    // Google "G" logo
                     Box(
                         modifier = Modifier
-                            .size(20.dp)
+                            .size(22.dp)
                             .background(
                                 Color.Transparent,
                                 CircleShape
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        // Simple Google "G" representation using text
                         Text(
                             text = "G",
-                            fontSize = 16.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF4285F4) // Google Blue
                         )
@@ -365,23 +411,26 @@ private fun UnauthenticatedProfileContent(
                         text = "Войти через Google",
                         color = Color(0xFF3C4043),
                         fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp
+                        fontSize = 15.sp
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(LocalDim.current.small))
+            Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedButton(
+            Button(
                 onClick = onVKSignIn,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(1.dp, Color(0xFF4C75A3)),
-                colors = ButtonDefaults.outlinedButtonColors(
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF4C75A3), // VK Blue background
-                    contentColor = Color.White // White text
+                    contentColor = Color.White
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 2.dp,
+                    pressedElevation = 6.dp
                 )
             ) {
                 Row(
@@ -392,19 +441,18 @@ private fun UnauthenticatedProfileContent(
                     // VK "VK" logo
                     Box(
                         modifier = Modifier
-                            .size(20.dp)
+                            .size(22.dp)
                             .background(
                                 Color.White,
                                 CircleShape
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        // Simple VK "VK" representation using text
                         Text(
                             text = "VK",
-                            fontSize = 12.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF4C75A3) // VK Blue text on white background
+                            color = Color(0xFF4C75A3)
                         )
                     }
                     Spacer(modifier = Modifier.width(12.dp))
@@ -412,7 +460,7 @@ private fun UnauthenticatedProfileContent(
                         text = "Войти через VK ID",
                         color = Color.White,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp
+                        fontSize = 15.sp
                     )
                 }
             }
