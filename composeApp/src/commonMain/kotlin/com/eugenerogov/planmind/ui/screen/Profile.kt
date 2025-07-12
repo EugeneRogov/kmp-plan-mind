@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
@@ -57,14 +59,16 @@ object ProfileScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         ProfileScreenContent(
-            onNavigateBack = { navigator.pop() }
+            onNavigateBack = { navigator.pop() },
+            onNavigateToAuth = { navigator.push(LoginScreen) }
         )
     }
 }
 
 @Composable
 fun ProfileScreenContent(
-    onNavigateBack: () -> Unit = {}
+    onNavigateBack: () -> Unit = {},
+    onNavigateToAuth: () -> Unit = {}
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -73,7 +77,8 @@ fun ProfileScreenContent(
             parameters = {
                 parametersOf(
                     DefaultComponentContext(lifecycle = LifecycleRegistry()),
-                    { /* Profile saved callback */ }
+                    { /* Profile saved callback */ },
+                    onNavigateToAuth
                 )
             }
         )
@@ -82,7 +87,7 @@ fun ProfileScreenContent(
     var state by remember { mutableStateOf(ProfileUiState()) }
 
     LaunchedEffect(profileViewModel) {
-        profileViewModel.loadProfile()
+        profileViewModel.checkAuthStatus()
         profileViewModel.state.subscribe { newState ->
             state = newState
         }
@@ -94,16 +99,22 @@ fun ProfileScreenContent(
         }
     }
 
-    ProfileContent(
-        state = state,
-        viewModel = profileViewModel,
-        onNavigateBack = onNavigateBack
-    )
+    if (state.isAuthenticated) {
+        AuthenticatedProfileContent(
+            state = state,
+            viewModel = profileViewModel,
+            onNavigateBack = onNavigateBack
+        )
+    } else {
+        UnauthenticatedProfileContent(
+            onGoToAuth = onNavigateToAuth
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ProfileContent(
+private fun AuthenticatedProfileContent(
     state: ProfileUiState,
     viewModel: ProfileViewModel,
     onNavigateBack: () -> Unit
@@ -251,10 +262,61 @@ private fun ProfileContent(
     }
 }
 
+@Composable
+private fun UnauthenticatedProfileContent(
+    onGoToAuth: () -> Unit
+) {
+    Scaffold(
+        containerColor = LocalColorsPalette.current.background
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(LocalDim.current.smallX),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "👤",
+                fontSize = 80.sp,
+                color = LocalColorsPalette.current.onSurface
+            )
+
+            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+
+            Text(
+                text = "Войдите в свой аккаунт",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = LocalColorsPalette.current.onSurface
+            )
+
+            Spacer(modifier = Modifier.height(LocalDim.current.small))
+
+            Text(
+                text = "Для доступа к профилю необходимо авторизоваться",
+                fontSize = 16.sp,
+                color = LocalColorsPalette.current.onSurface.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+
+            Button(
+                onClick = onGoToAuth,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Go to auth")
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun ProfilePreview() {
-    ProfileContent(
+    AuthenticatedProfileContent(
         state = ProfileUiState.preview(),
         viewModel = object : ProfileViewModel {
             override val state =
@@ -267,6 +329,8 @@ fun ProfilePreview() {
             override fun toggleEditing() {}
             override fun saveProfile() {}
             override fun loadProfile() {}
+            override fun checkAuthStatus() {}
+            override fun goToAuth() {}
         },
         onNavigateBack = {}
     )

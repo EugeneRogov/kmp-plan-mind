@@ -65,7 +65,8 @@ fun HomeContent(
                     onNavigateToProfile = onNavigateToProfile
                 )
                 1 -> ProfileScreenContent(
-                    onNavigateBack = { /* Handle back navigation if needed */ }
+                    onNavigateBack = { /* Handle back navigation if needed */ },
+                    onNavigateToAuth = onNavigateToLogin
                 )
             }
         }

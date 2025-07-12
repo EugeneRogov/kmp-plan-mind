@@ -17,4 +17,6 @@ interface AuthRepository {
     ): Either<Failure, LoginResponse>
 
     suspend fun logout(): Either<String, String>
+
+    suspend fun isAuthenticated(): Boolean
 }

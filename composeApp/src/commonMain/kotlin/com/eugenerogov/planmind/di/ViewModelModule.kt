@@ -25,10 +25,17 @@ val viewModelModule = module {
         } else {
             {}
         }
+        // 3-й параметр опционален – коллбэк для навигации к авторизации
+        val onNavigateToAuth: () -> Unit = if (params.size() > 2) {
+            params[2] as () -> Unit
+        } else {
+            {}
+        }
 
         ProfileViewModelImpl(
             componentContext = componentContext,
-            onProfileSaved = onProfileSaved
+            onProfileSaved = onProfileSaved,
+            onNavigateToAuth = onNavigateToAuth
         )
     }
 

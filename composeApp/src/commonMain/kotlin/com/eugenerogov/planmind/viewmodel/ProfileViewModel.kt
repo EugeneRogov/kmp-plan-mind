@@ -5,6 +5,7 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
 import com.eugenerogov.planmind.Failure
+import com.eugenerogov.planmind.domain.AuthRepository
 import com.eugenerogov.planmind.domain.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,11 +25,14 @@ interface ProfileViewModel {
     fun toggleEditing()
     fun saveProfile()
     fun loadProfile()
+    fun checkAuthStatus()
+    fun goToAuth()
 }
 
 class ProfileViewModelImpl(
     componentContext: ComponentContext,
-    private val onProfileSaved: () -> Unit = {}
+    private val onProfileSaved: () -> Unit = {},
+    private val onNavigateToAuth: () -> Unit = {}
 ) : ProfileViewModel, ComponentContext by componentContext, KoinComponent {
 
     private val _state = MutableValue(ProfileUiState())
@@ -37,6 +41,7 @@ class ProfileViewModelImpl(
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     private val profileRepository: ProfileRepository by inject()
+    private val authRepository: AuthRepository by inject()
 
     override fun updateFirstName(firstName: String) {
         _state.update { it.copy(firstName = firstName) }
@@ -56,6 +61,21 @@ class ProfileViewModelImpl(
 
     override fun toggleEditing() {
         _state.update { it.copy(isEditing = !it.isEditing) }
+    }
+
+    override fun checkAuthStatus() {
+        scope.launch {
+            val isAuthenticated = authRepository.isAuthenticated()
+            _state.update { it.copy(isAuthenticated = isAuthenticated) }
+
+            if (isAuthenticated) {
+                loadProfile()
+            }
+        }
+    }
+
+    override fun goToAuth() {
+        onNavigateToAuth()
     }
 
     override fun saveProfile() {

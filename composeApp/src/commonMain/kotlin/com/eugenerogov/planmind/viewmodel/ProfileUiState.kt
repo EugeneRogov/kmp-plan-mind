@@ -2,6 +2,7 @@ package com.eugenerogov.planmind.viewmodel
 
 data class ProfileUiState(
     val isLoading: Boolean = false,
+    val isAuthenticated: Boolean = false,
     val firstName: String = "",
     val lastName: String = "",
     val email: String = "",
@@ -12,6 +13,7 @@ data class ProfileUiState(
 ) {
     companion object {
         fun preview() = ProfileUiState(
+            isAuthenticated = true,
             firstName = "John",
             lastName = "Doe",
             email = "john.doe@example.com",
