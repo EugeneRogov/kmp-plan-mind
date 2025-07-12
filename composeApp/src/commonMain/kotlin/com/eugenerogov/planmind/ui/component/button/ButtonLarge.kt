@@ -7,9 +7,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.eugenerogov.planmind.ui.component.typography.LabelLarge
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -20,13 +20,15 @@ fun ButtonLarge(
     visible: Boolean = true,
     enabled: Boolean = true
 ) {
+    val dim = LocalDim.current
+
     AnimatedVisibility(
         visible = visible
     ) {
         Button(
             modifier =
             modifier
-                .size(height = 58.dp, width = 358.dp),
+                .size(height = dim.buttonHeightExtra, width = dim.buttonWidth),
             onClick = { onClick.invoke() },
             content = {
                 LabelLarge(

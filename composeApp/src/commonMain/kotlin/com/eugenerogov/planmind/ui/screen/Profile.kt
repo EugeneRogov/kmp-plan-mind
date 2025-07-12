@@ -43,7 +43,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -130,6 +129,8 @@ private fun AuthenticatedProfileContent(
     viewModel: ProfileViewModel,
     onNavigateBack: () -> Unit
 ) {
+    val dim = LocalDim.current
+
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
         snackbarHost = { SnackbarHost(hostState = remember { SnackbarHostState() }) },
@@ -175,16 +176,16 @@ private fun AuthenticatedProfileContent(
                 modifier = Modifier
                     .padding(innerPadding)
                     .fillMaxSize()
-                    .padding(LocalDim.current.smallX),
+                    .padding(dim.smallX),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(LocalDim.current.smallX)
+                verticalArrangement = Arrangement.spacedBy(dim.smallX)
             ) {
-                Spacer(modifier = Modifier.height(LocalDim.current.medium))
+                Spacer(modifier = Modifier.height(dim.medium))
 
                 // Avatar
                 Box(
                     modifier = Modifier
-                        .size(120.dp)
+                        .size(dim.avatarLarge)
                         .clip(CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
@@ -217,7 +218,7 @@ private fun AuthenticatedProfileContent(
                         enabled = !state.isSaving
                     )
 
-                    Spacer(modifier = Modifier.height(LocalDim.current.smallX))
+                    Spacer(modifier = Modifier.height(dim.smallX))
 
                     // Last Name
                     InputField(
@@ -259,10 +260,10 @@ private fun AuthenticatedProfileContent(
                 if (state.isSaving) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(dim.small3X)
                     ) {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(16.dp)
+                            modifier = Modifier.size(dim.smallX)
                         )
                         Text(
                             text = "Saving...",
@@ -281,6 +282,8 @@ private fun UnauthenticatedProfileContent(
     onGoogleSignIn: () -> Unit = {},
     onVKSignIn: () -> Unit = {}
 ) {
+    val dim = LocalDim.current
+
     Scaffold(
         containerColor = LocalColorsPalette.current.background
     ) { innerPadding ->
@@ -288,7 +291,7 @@ private fun UnauthenticatedProfileContent(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(LocalDim.current.smallX),
+                .padding(dim.smallX),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -298,7 +301,7 @@ private fun UnauthenticatedProfileContent(
                 color = LocalColorsPalette.current.onSurface
             )
 
-            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             Text(
                 text = "Войдите в свой аккаунт",
@@ -307,7 +310,7 @@ private fun UnauthenticatedProfileContent(
                 color = LocalColorsPalette.current.onSurface
             )
 
-            Spacer(modifier = Modifier.height(LocalDim.current.small))
+            Spacer(modifier = Modifier.height(dim.small))
 
             Text(
                 text = "Для доступа к профилю необходимо авторизоваться",
@@ -316,22 +319,22 @@ private fun UnauthenticatedProfileContent(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             // Основная кнопка авторизации в современном стиле
             Button(
                 onClick = onGoToAuth,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(12.dp),
+                    .height(dim.buttonHeightLarge),
+                shape = RoundedCornerShape(dim.roundingInput),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LocalColorsPalette.current.primary,
                     contentColor = LocalColorsPalette.current.onPrimary
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 2.dp,
-                    pressedElevation = 8.dp
+                    defaultElevation = dim.elevationSmall,
+                    pressedElevation = dim.elevationExtra
                 )
             ) {
                 Text(
@@ -341,7 +344,7 @@ private fun UnauthenticatedProfileContent(
                 )
             }
 
-            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             // Разделитель "или" 
             Row(
@@ -351,39 +354,39 @@ private fun UnauthenticatedProfileContent(
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        .height(1.dp)
+                        .height(dim.borderStroke)
                         .background(LocalColorsPalette.current.onSurface.copy(alpha = 0.2f))
                 )
                 Text(
                     text = "или",
-                    modifier = Modifier.padding(horizontal = 16.dp),
+                    modifier = Modifier.padding(horizontal = dim.smallX),
                     color = LocalColorsPalette.current.onSurface.copy(alpha = 0.6f),
                     fontSize = 14.sp
                 )
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        .height(1.dp)
+                        .height(dim.borderStroke)
                         .background(LocalColorsPalette.current.onSurface.copy(alpha = 0.2f))
                 )
             }
 
-            Spacer(modifier = Modifier.height(LocalDim.current.medium))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             OutlinedButton(
                 onClick = onGoogleSignIn,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(12.dp),
-                border = BorderStroke(1.5.dp, Color(0xFFE0E0E0)),
+                    .height(dim.buttonHeightLarge),
+                shape = RoundedCornerShape(dim.roundingInput),
+                border = BorderStroke(dim.borderStrokeThick, Color(0xFFE0E0E0)),
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = Color.White,
                     contentColor = Color(0xFF3C4043)
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 1.dp,
-                    pressedElevation = 4.dp
+                    defaultElevation = dim.cardElevation,
+                    pressedElevation = dim.elevationMedium
                 )
             ) {
                 Row(
@@ -394,7 +397,7 @@ private fun UnauthenticatedProfileContent(
                     // Google "G" logo
                     Box(
                         modifier = Modifier
-                            .size(22.dp)
+                            .size(dim.iconMedium)
                             .background(
                                 Color.Transparent,
                                 CircleShape
@@ -408,7 +411,7 @@ private fun UnauthenticatedProfileContent(
                             color = Color(0xFF4285F4) // Google Blue
                         )
                     }
-                    Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(dim.small2X))
                     Text(
                         text = "Войти через Google",
                         color = Color(0xFF3C4043),
@@ -418,21 +421,21 @@ private fun UnauthenticatedProfileContent(
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(dim.small2X))
 
             Button(
                 onClick = onVKSignIn,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(12.dp),
+                    .height(dim.buttonHeightLarge),
+                shape = RoundedCornerShape(dim.roundingInput),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF4C75A3), // VK Blue background
                     contentColor = Color.White
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 2.dp,
-                    pressedElevation = 6.dp
+                    defaultElevation = dim.elevationSmall,
+                    pressedElevation = dim.elevationLarge
                 )
             ) {
                 Row(
@@ -443,7 +446,7 @@ private fun UnauthenticatedProfileContent(
                     // VK "VK" logo
                     Box(
                         modifier = Modifier
-                            .size(22.dp)
+                            .size(dim.iconMedium)
                             .background(
                                 Color.White,
                                 CircleShape
@@ -457,7 +460,7 @@ private fun UnauthenticatedProfileContent(
                             color = Color(0xFF4C75A3)
                         )
                     }
-                    Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(dim.small2X))
                     Text(
                         text = "Войти через VK ID",
                         color = Color.White,

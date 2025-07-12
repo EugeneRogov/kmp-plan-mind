@@ -23,9 +23,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -44,6 +44,7 @@ fun InputField(
     textColor: Color = LocalColorsPalette.current.onSurface,
     isPassword: Boolean = false
 ) {
+    val dim = LocalDim.current
     var isPasswordVisible by remember { mutableStateOf(false) }
 
     val actualVisualTransformation = if (isPassword && !isPasswordVisible) {
@@ -55,7 +56,7 @@ fun InputField(
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp)
+            .height(dim.inputFieldHeight)
             .focusRequester(focusRequester),
         value = value,
         onValueChange = onValueChange,
@@ -92,7 +93,7 @@ fun InputField(
         visualTransformation = actualVisualTransformation,
         singleLine = singleLine,
         enabled = enabled,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(dim.roundingInput),
         colors = OutlinedTextFieldDefaults.colors(
             focusedTextColor = textColor,
             unfocusedTextColor = textColor,

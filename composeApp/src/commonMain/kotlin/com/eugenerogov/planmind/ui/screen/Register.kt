@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -104,6 +103,8 @@ private fun RegisterContent(
     state: RegisterUiState,
     component: RegisterViewModel
 ) {
+    val dim = LocalDim.current
+
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
     ) { innerPadding ->
@@ -111,7 +112,7 @@ private fun RegisterContent(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(LocalDim.current.smallX),
+                .padding(dim.smallX),
             verticalArrangement = Arrangement.Center
         ) {
             // Logo section
@@ -121,11 +122,11 @@ private fun RegisterContent(
             ) {
                 AppLogo(
                     modifier = Modifier
-                        .padding(bottom = 8.dp)
+                        .padding(bottom = dim.small3X)
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             // Username field
             InputField(
@@ -139,7 +140,7 @@ private fun RegisterContent(
                 enabled = state.isUsernameEnabled && !state.inProgress
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Email field
             InputEmail(
@@ -152,7 +153,7 @@ private fun RegisterContent(
                 enabled = state.isEmailEnabled && !state.inProgress
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Password field
             InputField(
@@ -167,7 +168,7 @@ private fun RegisterContent(
                 isPassword = true
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Confirm Password field
             InputField(
@@ -182,10 +183,10 @@ private fun RegisterContent(
                 isPassword = true
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(dim.small))
 
             // Register button
             Button(
@@ -193,15 +194,15 @@ private fun RegisterContent(
                 enabled = !state.inProgress,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(12.dp),
+                    .height(dim.buttonHeightLarge),
+                shape = RoundedCornerShape(dim.roundingInput),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LocalColorsPalette.current.primary,
                     contentColor = LocalColorsPalette.current.onPrimary
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 2.dp,
-                    pressedElevation = 8.dp
+                    defaultElevation = dim.elevationSmall,
+                    pressedElevation = dim.elevationExtra
                 )
             ) {
                 Text(
@@ -211,7 +212,7 @@ private fun RegisterContent(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Back to login button
             TextButton(

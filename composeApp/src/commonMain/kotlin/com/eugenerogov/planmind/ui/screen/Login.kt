@@ -27,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -110,6 +109,8 @@ private fun LoginContent(
     goToRegister: () -> Unit,
     goToRecoverPassword: () -> Unit
 ) {
+    val dim = LocalDim.current
+
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
     ) { innerPadding ->
@@ -117,7 +118,7 @@ private fun LoginContent(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(LocalDim.current.smallX),
+                .padding(dim.smallX),
             verticalArrangement = Arrangement.Center
         ) {
             // Logo section
@@ -127,11 +128,11 @@ private fun LoginContent(
             ) {
                 AppLogo(
                     modifier = Modifier
-                        .padding(bottom = 8.dp)
+                        .padding(bottom = dim.small3X)
                 )
             }
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(dim.avatar))
 
             InputEmail(
                 hint = stringResource(Res.string.email_hint),
@@ -143,7 +144,7 @@ private fun LoginContent(
                 enabled = state.isLoginEnabled && !state.inProgress
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Password field using modern InputField
             InputField(
@@ -158,7 +159,7 @@ private fun LoginContent(
                 isPassword = true
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(dim.small3X))
 
             // "Напомнить пароль?" clickable text
             Row(
@@ -177,7 +178,7 @@ private fun LoginContent(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Login button (updated to match "Войти в аккаунт" modern style)
             Button(
@@ -185,15 +186,15 @@ private fun LoginContent(
                 enabled = !state.inProgress,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(12.dp),
+                    .height(dim.buttonHeightLarge),
+                shape = RoundedCornerShape(dim.roundingInput),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LocalColorsPalette.current.primary,
                     contentColor = LocalColorsPalette.current.onPrimary
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 2.dp,
-                    pressedElevation = 8.dp
+                    defaultElevation = dim.elevationSmall,
+                    pressedElevation = dim.elevationExtra
                 )
             ) {
                 Text(
@@ -204,7 +205,7 @@ private fun LoginContent(
             }
 
             // "Впервые? Зарегистрироваться" below login button
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(dim.small3X))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,

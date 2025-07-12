@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.eugenerogov.planmind.ui.component.typography.TitleMedium
+import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,12 +28,14 @@ fun TopBar(
     icon: Painter,
     actionIcon: Painter? = null,
     text: String,
-    iconSize: Dp = 24.dp,
+    iconSize: Dp = LocalDim.current.menuIcon,
     containerColor: Color = Color.Companion.Transparent,
     onClickBack: () -> Unit,
     onClickMenu: () -> Unit = {},
     visibleActions: Boolean = false
 ) {
+    val dim = LocalDim.current
+
     TopAppBar(
         modifier = modifier.fillMaxWidth(),
         colors = TopAppBarDefaults.topAppBarColors(
@@ -42,14 +44,14 @@ fun TopBar(
         navigationIcon = {
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(30.dp))
+                    .clip(RoundedCornerShape(dim.roundingLarge))
                     .clickable {
                         onClickBack.invoke()
                     }
             ) {
                 Image(
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(dim.small3X)
                         .size(iconSize),
                     painter = icon,
                     contentDescription = ""
@@ -60,7 +62,7 @@ fun TopBar(
             TitleMedium(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 40.dp),
+                    .padding(end = dim.mediumX),
                 text = text,
                 textAlign = TextAlign.Center,
                 maxLines = 2
@@ -70,14 +72,14 @@ fun TopBar(
             if (visibleActions) {
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(30.dp))
+                        .clip(RoundedCornerShape(dim.roundingLarge))
                         .clickable {
                             onClickMenu.invoke()
                         }
                 ) {
 //                    Image(
 //                        modifier = Modifier
-//                            .padding(8.dp)
+//                            .padding(dim.small3X)
 //                            .size(iconSize),
 //                        painter = actionIcon ?: painterResource(R.drawable.timer),
 //                        contentDescription = ""

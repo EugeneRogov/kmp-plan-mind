@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
+import com.eugenerogov.planmind.ui.theme.LocalDim
 import com.eugenerogov.planmind.ui.theme.PlanMindTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -26,20 +27,22 @@ fun ThemePreviewCard(
     title: String,
     modifier: Modifier = Modifier
 ) {
+    val dim = LocalDim.current
+
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(12.dp),
+            .padding(dim.small3X),
+        shape = RoundedCornerShape(dim.roundingInput),
         colors = CardDefaults.cardColors(
             containerColor = LocalColorsPalette.current.surface
         )
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(dim.smallX)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(dim.small3X)
         ) {
             Text(
                 text = title,
@@ -74,13 +77,15 @@ fun ThemePreviewCard(
 @Preview
 @Composable
 fun ThemePreview() {
+    val dim = LocalDim.current
+
     Row {
         PlanMindTheme(darkTheme = false) {
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .background(LocalColorsPalette.current.background)
-                    .padding(8.dp)
+                    .padding(dim.small3X)
             ) {
                 ThemePreviewCard("Light Theme")
             }
@@ -91,7 +96,7 @@ fun ThemePreview() {
                 modifier = Modifier
                     .weight(1f)
                     .background(LocalColorsPalette.current.background)
-                    .padding(8.dp)
+                    .padding(dim.small3X)
             ) {
                 ThemePreviewCard("Dark Theme")
             }

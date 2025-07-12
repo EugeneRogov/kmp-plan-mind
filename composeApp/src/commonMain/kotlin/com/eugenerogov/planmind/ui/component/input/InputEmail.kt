@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
@@ -33,10 +32,12 @@ fun InputEmail(
     enabled: Boolean = true,
     focusRequester: FocusRequester = FocusRequester()
 ) {
+    val dim = LocalDim.current
+
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp)
+            .height(dim.inputFieldHeight)
             .focusRequester(focusRequester),
         value = text,
         onValueChange = onValueChange,
@@ -62,7 +63,7 @@ fun InputEmail(
         },
         singleLine = true,
         enabled = enabled,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(dim.roundingInput),
         colors = OutlinedTextFieldDefaults.colors(
             focusedTextColor = textColor,
             unfocusedTextColor = textColor,

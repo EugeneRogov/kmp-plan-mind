@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -109,6 +108,8 @@ private fun RecoverPasswordContent(
     state: RecoverPasswordUiState,
     component: RecoverPasswordViewModel
 ) {
+    val dim = LocalDim.current
+
     Scaffold(
         containerColor = LocalColorsPalette.current.background,
     ) { innerPadding ->
@@ -116,17 +117,17 @@ private fun RecoverPasswordContent(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(LocalDim.current.smallX),
+                .padding(dim.smallX),
             verticalArrangement = Arrangement.Center
         ) {
             // App Logo
             AppLogo(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(top = 24.dp, bottom = 16.dp)
+                    .padding(top = dim.small, bottom = dim.smallX)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(dim.small3X))
 
             // Description
             Text(
@@ -137,7 +138,7 @@ private fun RecoverPasswordContent(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             // Email field
             InputEmail(
@@ -150,7 +151,7 @@ private fun RecoverPasswordContent(
                 enabled = state.isEmailEnabled && !state.inProgress
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dim.medium))
 
             // Recover button
             Button(
@@ -158,15 +159,15 @@ private fun RecoverPasswordContent(
                 enabled = !state.inProgress,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(12.dp),
+                    .height(dim.buttonHeightLarge),
+                shape = RoundedCornerShape(dim.roundingInput),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LocalColorsPalette.current.primary,
                     contentColor = LocalColorsPalette.current.onPrimary
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 2.dp,
-                    pressedElevation = 8.dp
+                    defaultElevation = dim.elevationSmall,
+                    pressedElevation = dim.elevationExtra
                 )
             ) {
                 Text(
@@ -176,7 +177,7 @@ private fun RecoverPasswordContent(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dim.smallX))
 
             // Back to login button
             Row(
@@ -195,7 +196,7 @@ private fun RecoverPasswordContent(
 
             // Success message
             if (state.successMessage.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(dim.smallX))
                 Text(
                     text = state.successMessage,
                     fontSize = 14.sp,
