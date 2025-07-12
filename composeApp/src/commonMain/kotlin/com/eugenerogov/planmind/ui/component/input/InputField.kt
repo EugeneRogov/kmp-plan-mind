@@ -15,38 +15,37 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
-import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun InputEmail(
+fun InputField(
     modifier: Modifier = Modifier,
-    text: String,
-    textColor: Color = LocalColorsPalette.current.onSurface,
-    hint: String = "",
+    value: String,
     onValueChange: (String) -> Unit,
-    imeAction: ImeAction = ImeAction.Send,
-    inputType: KeyboardType = KeyboardType.Email,
+    label: String = "",
+    placeholder: String = label,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
-    focusRequester: FocusRequester = FocusRequester()
+    singleLine: Boolean = true,
+    focusRequester: FocusRequester = FocusRequester(),
+    textColor: Color = LocalColorsPalette.current.onSurface
 ) {
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
             .focusRequester(focusRequester),
-        value = text,
+        value = value,
         onValueChange = onValueChange,
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = inputType
-        ),
         label = {
             Text(
-                text = hint,
+                text = label,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 color = if (enabled) LocalColorsPalette.current.onSurfaceVariant
@@ -55,12 +54,17 @@ fun InputEmail(
         },
         placeholder = {
             Text(
-                text = hint,
+                text = placeholder,
                 fontSize = 16.sp,
                 color = LocalColorsPalette.current.onSurfaceVariant.copy(alpha = 0.7f)
             )
         },
-        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+            imeAction = imeAction
+        ),
+        visualTransformation = visualTransformation,
+        singleLine = singleLine,
         enabled = enabled,
         shape = RoundedCornerShape(12.dp),
         colors = OutlinedTextFieldDefaults.colors(
@@ -83,11 +87,11 @@ fun InputEmail(
 
 @Preview()
 @Composable
-fun InputEmailPreview() {
-    InputEmail(
-        text = "",
+fun InputFieldPreview() {
+    InputField(
+        value = "",
         onValueChange = {},
-        textColor = LocalColorsPalette.current.onSurface,
-        hint = "Email"
+        label = "Username",
+        placeholder = "Enter your username"
     )
 }

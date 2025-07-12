@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
+import com.eugenerogov.planmind.ui.component.input.InputField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -118,12 +118,7 @@ private fun LoginContent(
         ) {
             InputEmail(
                 hint = stringResource(Res.string.email_hint),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = LocalDim.current.medium,
-                        bottom = LocalDim.current.small4X
-                    ),
+                modifier = Modifier.fillMaxWidth(),
                 text = state.login,
                 onValueChange = component::updateLogin,
                 inputType = KeyboardType.Email,
@@ -131,22 +126,22 @@ private fun LoginContent(
                 enabled = state.isLoginEnabled && !state.inProgress
             )
 
-            // Password field
-            OutlinedTextField(
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Password field using modern InputField
+            InputField(
+                label = "Пароль",
+                placeholder = "Введите пароль",
                 value = state.password,
                 onValueChange = component::updatePassword,
-                label = { Text("Password") },
-                placeholder = { Text("Enter your password") },
                 modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
-                ),
-                enabled = state.isPasswordEnabled && !state.inProgress
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done,
+                enabled = state.isPasswordEnabled && !state.inProgress,
+                visualTransformation = PasswordVisualTransformation()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Login button (updated to match "Войти в аккаунт" modern style)
             Button(

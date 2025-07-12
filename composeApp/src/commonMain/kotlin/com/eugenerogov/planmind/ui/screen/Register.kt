@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -34,8 +33,13 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.eugenerogov.planmind.viewmodel.RegisterViewModel
 import com.eugenerogov.planmind.viewmodel.RegisterUiState
-import com.eugenerogov.planmind.ui.component.button.ButtonLarge
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.component.input.InputEmail
+import com.eugenerogov.planmind.ui.component.input.InputField
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.resources.stringResource
@@ -111,16 +115,14 @@ private fun RegisterContent(
             verticalArrangement = Arrangement.Center
         ) {
             // Username field
-            OutlinedTextField(
+            InputField(
                 value = state.username,
                 onValueChange = component::updateUsername,
-                label = { Text("Username") },
-                placeholder = { Text("Enter your username") },
+                label = "Имя пользователя",
+                placeholder = "Введите имя пользователя",
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                ),
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next,
                 enabled = state.isUsernameEnabled && !state.inProgress
             )
 
@@ -129,11 +131,7 @@ private fun RegisterContent(
             // Email field
             InputEmail(
                 hint = stringResource(Res.string.email_hint),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        bottom = LocalDim.current.small4X
-                    ),
+                modifier = Modifier.fillMaxWidth(),
                 text = state.email,
                 onValueChange = component::updateEmail,
                 inputType = KeyboardType.Email,
@@ -141,36 +139,34 @@ private fun RegisterContent(
                 enabled = state.isEmailEnabled && !state.inProgress
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Password field
-            OutlinedTextField(
+            InputField(
                 value = state.password,
                 onValueChange = component::updatePassword,
-                label = { Text("Password") },
-                placeholder = { Text("Enter your password") },
+                label = "Пароль",
+                placeholder = "Введите пароль",
                 modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Next
-                ),
-                enabled = state.isPasswordEnabled && !state.inProgress
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next,
+                enabled = state.isPasswordEnabled && !state.inProgress,
+                visualTransformation = PasswordVisualTransformation()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Confirm Password field
-            OutlinedTextField(
+            InputField(
                 value = state.confirmPassword,
                 onValueChange = component::updateConfirmPassword,
-                label = { Text("Confirm Password") },
-                placeholder = { Text("Confirm your password") },
+                label = "Подтвердите пароль",
+                placeholder = "Повторите пароль",
                 modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
-                ),
-                enabled = state.isConfirmPasswordEnabled && !state.inProgress
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done,
+                enabled = state.isConfirmPasswordEnabled && !state.inProgress,
+                visualTransformation = PasswordVisualTransformation()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -186,7 +182,7 @@ private fun RegisterContent(
                     enabled = state.isStayLoggedEnabled && !state.inProgress
                 )
                 Text(
-                    text = "Stay logged in",
+                    text = "Оставаться в системе",
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }
@@ -194,11 +190,28 @@ private fun RegisterContent(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Register button
-            ButtonLarge(
+            Button(
                 onClick = component::onClickRegister,
-                text = if (state.inProgress) "Creating account..." else "Register",
-                enabled = !state.inProgress
-            )
+                enabled = !state.inProgress,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = LocalColorsPalette.current.primary,
+                    contentColor = LocalColorsPalette.current.onPrimary
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 2.dp,
+                    pressedElevation = 8.dp
+                )
+            ) {
+                Text(
+                    text = if (state.inProgress) "Создаём аккаунт..." else "Зарегистрироваться",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp
+                )
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -208,7 +221,7 @@ private fun RegisterContent(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !state.inProgress
             ) {
-                Text("Already have an account? Login")
+                Text("Уже есть аккаунт? Войти")
             }
         }
     }

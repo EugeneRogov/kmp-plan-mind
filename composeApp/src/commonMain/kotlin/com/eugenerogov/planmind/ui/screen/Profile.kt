@@ -23,7 +23,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
+import com.eugenerogov.planmind.ui.component.input.InputField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -208,21 +208,23 @@ private fun AuthenticatedProfileContent(
                 // Name display or edit
                 if (state.isEditing) {
                     // First Name
-                    OutlinedTextField(
+                    InputField(
                         value = state.firstName,
                         onValueChange = viewModel::updateFirstName,
-                        label = { Text("First Name") },
-                        placeholder = { Text("Enter your first name") },
+                        label = "Имя",
+                        placeholder = "Введите ваше имя",
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !state.isSaving
                     )
 
+                    Spacer(modifier = Modifier.height(LocalDim.current.smallX))
+
                     // Last Name
-                    OutlinedTextField(
+                    InputField(
                         value = state.lastName,
                         onValueChange = viewModel::updateLastName,
-                        label = { Text("Last Name") },
-                        placeholder = { Text("Enter your last name") },
+                        label = "Фамилия",
+                        placeholder = "Введите вашу фамилию",
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !state.isSaving
                     )
