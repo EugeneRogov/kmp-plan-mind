@@ -117,7 +117,8 @@ fun ProfileScreenContent(
     } else {
         UnauthenticatedProfileContent(
             onGoToAuth = onNavigateToAuth,
-            onGoogleSignIn = profileViewModel::signInWithGoogle
+            onGoogleSignIn = profileViewModel::signInWithGoogle,
+            onVKSignIn = profileViewModel::signInWithVK
         )
     }
 }
@@ -275,7 +276,8 @@ private fun AuthenticatedProfileContent(
 @Composable
 private fun UnauthenticatedProfileContent(
     onGoToAuth: () -> Unit,
-    onGoogleSignIn: () -> Unit = {}
+    onGoogleSignIn: () -> Unit = {},
+    onVKSignIn: () -> Unit = {}
 ) {
     Scaffold(
         containerColor = LocalColorsPalette.current.background
@@ -367,6 +369,53 @@ private fun UnauthenticatedProfileContent(
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(LocalDim.current.small))
+
+            OutlinedButton(
+                onClick = onVKSignIn,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(1.dp, Color(0xFF4C75A3)),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = Color(0xFF4C75A3), // VK Blue background
+                    contentColor = Color.White // White text
+                )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    // VK "VK" logo
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(
+                                Color.White,
+                                CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        // Simple VK "VK" representation using text
+                        Text(
+                            text = "VK",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF4C75A3) // VK Blue text on white background
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = "Войти через VK ID",
+                        color = Color.White,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 14.sp
+                    )
+                }
+            }
         }
     }
 }
@@ -390,6 +439,7 @@ fun ProfilePreview() {
             override fun checkAuthStatus() {}
             override fun goToAuth() {}
             override fun signInWithGoogle() {}
+            override fun signInWithVK() {}
         },
         onNavigateBack = {}
     )

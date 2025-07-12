@@ -28,6 +28,7 @@ interface ProfileViewModel {
     fun checkAuthStatus()
     fun goToAuth()
     fun signInWithGoogle()
+    fun signInWithVK()
 }
 
 class ProfileViewModelImpl(
@@ -152,5 +153,9 @@ class ProfileViewModelImpl(
 
     override fun signInWithGoogle() {
         // TO DO: Implement Google Sign-In functionality here
+    }
+
+    override fun signInWithVK() {
+        // TO DO: Implement VK ID Sign-In functionality here
     }
 }
