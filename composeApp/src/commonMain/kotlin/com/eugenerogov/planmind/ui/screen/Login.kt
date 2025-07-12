@@ -36,6 +36,7 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.component.input.InputField
+import com.eugenerogov.planmind.ui.component.AppLogo
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import com.eugenerogov.planmind.viewmodel.LoginUiState
@@ -119,6 +120,19 @@ private fun LoginContent(
                 .padding(LocalDim.current.smallX),
             verticalArrangement = Arrangement.Center
         ) {
+            // Logo section
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AppLogo(
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(48.dp))
+
             InputEmail(
                 hint = stringResource(Res.string.email_hint),
                 modifier = Modifier.fillMaxWidth(),

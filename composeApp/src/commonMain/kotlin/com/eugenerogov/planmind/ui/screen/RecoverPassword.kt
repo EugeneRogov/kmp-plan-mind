@@ -38,6 +38,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.eugenerogov.planmind.viewmodel.RecoverPasswordViewModel
 import com.eugenerogov.planmind.viewmodel.RecoverPasswordUiState
 import com.eugenerogov.planmind.ui.component.input.InputEmail
+import com.eugenerogov.planmind.ui.component.AppLogo
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.resources.stringResource
@@ -118,14 +119,11 @@ private fun RecoverPasswordContent(
                 .padding(LocalDim.current.smallX),
             verticalArrangement = Arrangement.Center
         ) {
-            // Title
-            Text(
-                text = "Восстановление пароля",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = LocalColorsPalette.current.onSurface,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
+            // App Logo
+            AppLogo(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 24.dp, bottom = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp))

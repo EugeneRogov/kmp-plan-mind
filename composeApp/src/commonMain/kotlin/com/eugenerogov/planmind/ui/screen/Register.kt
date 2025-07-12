@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.eugenerogov.planmind.ui.component.input.InputEmail
 import com.eugenerogov.planmind.ui.component.input.InputField
+import com.eugenerogov.planmind.ui.component.AppLogo
 import com.eugenerogov.planmind.ui.theme.LocalColorsPalette
 import com.eugenerogov.planmind.ui.theme.LocalDim
 import org.jetbrains.compose.resources.stringResource
@@ -113,6 +114,19 @@ private fun RegisterContent(
                 .padding(LocalDim.current.smallX),
             verticalArrangement = Arrangement.Center
         ) {
+            // Logo section
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AppLogo(
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
             // Username field
             InputField(
                 value = state.username,
