@@ -38,10 +38,6 @@ class ProfileViewModelImpl(
 
     private val profileRepository: ProfileRepository by inject()
 
-    init {
-//        loadProfile()
-    }
-
     override fun updateFirstName(firstName: String) {
         _state.update { it.copy(firstName = firstName) }
     }
